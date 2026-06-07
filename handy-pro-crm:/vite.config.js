@@ -5,5 +5,5 @@ import react from '@vitejs/plugin-react'
 // Example: if your repo is github.com/yourname/my-crm, use '/my-crm/'
 export default defineConfig({
   plugins: [react()],
-  base: '/handy-pro-crm/',
+  base: '/NEW-HANY-PRO-CRM/',
 })
