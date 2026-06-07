@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Handy Pro CRM</title>
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    :root {
+      --blue: #2563eb; --blue-dark: #1d4ed8; --blue-light: #eff6ff;
+      --green: #16a34a; --green-light: #f0fdf4;
+      --amber: #d97706; --amber-light: #fffbeb;
+      --red: #dc2626; --red-light: #fef2f2;
+      --gray: #6b7280; --gray-light: #f3f4f6;
+      --border: #e5e7eb; --text: #111827; --text-soft: #6b7280;
+      --radius: 8px; --shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f8fafc; color: var(--text); font-size: 15px; line-height: 1.5; }
+    button { cursor: pointer; font-family: inherit; font-size: 14px; }
+    input, select, textarea { font-family: inherit; font-size: 14px; }
+
+    .navbar { background: var(--blue); padding: 0 20px; display: flex; align-items: center; gap: 8px; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 4px rgba(0,0,0,0.15); }
+    .navbar-brand { color: white; font-weight: 700; font-size: 17px; padding: 16px 0; margin-right: 8px; white-space: nowrap; }
+    .nav-tab { background: none; border: none; color: rgba(255,255,255,0.75); padding: 18px 14px; font-size: 14px; font-weight: 500; border-bottom: 3px solid transparent; transition: all 0.15s; }
+    .nav-tab:hover { color: white; }
+    .nav-tab.active { color: white; border-bottom-color: white; }
+    .navbar-right { margin-left: auto; display: flex; align-items: center; gap: 12px; }
+    .nav-user { color: rgba(255,255,255,0.8); font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 180px; }
+    .btn-logout { background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); color: white; padding: 6px 14px; border-radius: var(--radius); font-size: 13px; transition: background 0.15s; }
+    .btn-logout:hover { background: rgba(255,255,255,0.25); }
+
+    .main-content { max-width: 1100px; margin: 0 auto; padding: 28px 20px; }
+
+    .login-page { min-height: 100vh; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%); padding: 20px; }
+    .login-card { background: white; border-radius: 12px; padding: 40px; width: 100%; max-width: 400px; box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
+    .login-logo { text-align: center; font-size: 40px; margin-bottom: 8px; }
+    .login-title { text-align: center; font-size: 22px; font-weight: 700; margin-bottom: 4px; }
+    .login-subtitle { text-align: center; color: var(--text-soft); font-size: 14px; margin-bottom: 28px; }
+
+    .form-group { margin-bottom: 16px; }
+    .form-group label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; }
+    .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 10px 12px; border: 1.5px solid var(--border); border-radius: var(--radius); font-size: 14px; transition: border-color 0.15s; background: white; color: var(--text); }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--blue); }
+    .form-group textarea { resize: vertical; min-height: 80px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+    .btn-primary { width: 100%; background: var(--blue); color: white; border: none; padding: 11px; border-radius: var(--radius); font-size: 15px; font-weight: 600; transition: background 0.15s; }
+    .btn-primary:hover { background: var(--blue-dark); }
+    .btn-primary:disabled { opacity: 0.6; cursor: default; }
+
+    .error-msg { background: var(--red-light); border: 1px solid #fca5a5; color: var(--red); padding: 10px 14px; border-radius: var(--radius); font-size: 13px; margin-bottom: 16px; }
+
+    .page-title { font-size: 22px; font-weight: 700; margin-bottom: 24px; }
+    .page-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; }
+
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 32px; }
+    .stat-card { background: white; border-radius: var(--radius); padding: 20px; box-shadow: var(--shadow); border-left: 4px solid var(--blue); }
+    .stat-card.green { border-left-color: var(--green); }
+    .stat-card.amber { border-left-color: var(--amber); }
+    .stat-card.red { border-left-color: var(--red); }
+    .stat-label { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-soft); margin-bottom: 6px; }
+    .stat-value { font-size: 30px; font-weight: 700; }
+    .stat-sub { font-size: 13px; color: var(--text-soft); margin-top: 4px; }
+
+    .card { background: white; border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
+    .section-header { padding: 16px 20px; border-bottom: 1px solid var(--border); font-weight: 600; font-size: 15px; }
+
+    .table-wrapper { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; }
+    th { background: var(--gray-light); padding: 11px 16px; text-align: left; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-soft); white-space: nowrap; }
+    td { padding: 12px 16px; border-bottom: 1px solid var(--border); font-size: 14px; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: var(--gray-light); }
+
+    .empty-state { text-align: center; padding: 40px 20px; color: var(--text-soft); }
+    .empty-icon { font-size: 36px; margin-bottom: 8px; }
+
+    .btn-add { background: var(--blue); color: white; border: none; padding: 9px 18px; border-radius: var(--radius); font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 6px; transition: background 0.15s; }
+    .btn-add:hover { background: var(--blue-dark); }
+
+    .action-btns { display: flex; gap: 6px; }
+    .btn-edit { background: var(--blue-light); color: var(--blue); border: none; padding: 5px 10px; border-radius: 5px; font-size: 12px; font-weight: 600; }
+    .btn-edit:hover { background: #dbeafe; }
+    .btn-delete { background: var(--red-light); color: var(--red); border: none; padding: 5px 10px; border-radius: 5px; font-size: 12px; font-weight: 600; }
+    .btn-delete:hover { background: #fee2e2; }
+
+    .badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; text-transform: capitalize; }
+    .badge-draft { background: var(--gray-light); color: var(--gray); }
+    .badge-sent { background: var(--blue-light); color: var(--blue); }
+    .badge-approved { background: var(--green-light); color: var(--green); }
+    .badge-declined { background: var(--red-light); color: var(--red); }
+    .badge-completed { background: #f0fdf4; color: #166534; }
+
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.45); display: flex; align-items: center; justify-content: center; z-index: 1000; padding: 20px; }
+    .modal { background: white; border-radius: 12px; width: 100%; max-width: 520px; max-height: 90vh; overflow-y: auto; box-shadow: 0 20px 50px rgba(0,0,0,0.25); }
+    .modal-header { padding: 20px 24px 16px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+    .modal-title { font-size: 17px; font-weight: 700; }
+    .modal-close { background: none; border: none; font-size: 22px; color: var(--text-soft); line-height: 1; padding: 2px 6px; }
+    .modal-close:hover { color: var(--text); }
+    .modal-body { padding: 20px 24px; }
+    .modal-footer { padding: 16px 24px; border-top: 1px solid var(--border); display: flex; gap: 10px; justify-content: flex-end; }
+
+    .btn-cancel { background: white; border: 1.5px solid var(--border); color: var(--text); padding: 9px 18px; border-radius: var(--radius); font-size: 14px; font-weight: 500; }
+    .btn-cancel:hover { background: var(--gray-light); }
+    .btn-save { background: var(--blue); color: white; border: none; padding: 9px 22px; border-radius: var(--radius); font-size: 14px; font-weight: 600; }
+    .btn-save:hover { background: var(--blue-dark); }
+    .btn-save:disabled { opacity: 0.6; cursor: default; }
+
+    .search-bar { padding: 12px 16px; border-bottom: 1px solid var(--border); display: flex; gap: 10px; align-items: center; }
+    .search-bar input { flex: 1; padding: 8px 12px; border: 1.5px solid var(--border); border-radius: var(--radius); font-size: 14px; }
+    .search-bar input:focus { outline: none; border-color: var(--blue); }
+
+    .loading { display: flex; align-items: center; justify-content: center; padding: 60px; color: var(--text-soft); gap: 10px; }
+    .spinner { width: 20px; height: 20px; border: 2.5px solid var(--border); border-top-color: var(--blue); border-radius: 50%; animation: spin 0.7s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .table-footer { padding: 12px 16px; border-top: 1px solid var(--border); font-size: 13px; color: var(--text-soft); display: flex; justify-content: space-between; }
+
+    @media (max-width: 600px) {
+      .navbar { padding: 0 12px; }
+      .nav-tab { padding: 16px 10px; font-size: 13px; }
+      .nav-user { display: none; }
+      .main-content { padding: 16px 12px; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState, useEffect } = React;
+    const { createClient } = supabase;
+
+    const db = createClient(
+      'https://aryhvfihsuppprqxnszf.supabase.co',
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFyeWh2Zmloc3VwcHBycXhuc3pmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA3ODM2NjgsImV4cCI6MjA5NjM1OTY2OH0.Zj5I5oFhZ8qQqfPmnWklMkEhny_f73Uq2wBkGAE-Mqw'
+    );
+
+    // ── LOGIN ──────────────────────────────────────────────
+    function Login() {
+      const [email, setEmail] = useState('');
+      const [password, setPassword] = useState('');
+      const [loading, setLoading] = useState(false);
+      const [error, setError] = useState('');
+
+      async function handleLogin(e) {
+        e.preventDefault();
+        setLoading(true); setError('');
+        const { error } = await db.auth.signInWithPassword({ email, password });
+        if (error) { setError(error.message); setLoading(false); }
+      }
+
+      return (
+        <div className="login-page">
+          <div className="login-card">
+            <div className="login-logo">🔧</div>
+            <h1 className="login-title">Handy Pro CRM</h1>
+            <p className="login-subtitle">Sign in to access your account</p>
+            {error && <div className="error-msg">{error}</div>}
+            <form onSubmit={handleLogin}>
+              <div className="form-group">
+                <label>Email Address</label>
+                <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="you@example.com" required autoFocus />
+              </div>
+              <div className="form-group">
+                <label>Password</label>
+                <input type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="••••••••" required />
+              </div>
+              <button type="submit" className="btn-primary" disabled={loading}>
+                {loading ? 'Signing in...' : 'Sign In'}
+              </button>
+            </form>
+            <p style={{textAlign:'center',marginTop:'20px',fontSize:'13px',color:'#6b7280'}}>
+              Contact your administrator to get an account.
+            </p>
+          </div>
+        </div>
+      );
+    }
+
+    // ── NAVBAR ─────────────────────────────────────────────
+    function NavBar({ activeTab, setActiveTab, userEmail }) {
+      async function handleLogout() { await db.auth.signOut(); }
+      return (
+        <nav className="navbar">
+          <span className="navbar-brand">🔧 Handy Pro</span>
+          {['dashboard','customers','estimates'].map(tab => (
+            <button key={tab} className={`nav-tab ${activeTab === tab ? 'active' : ''}`} onClick={() => setActiveTab(tab)}>
+              {tab.charAt(0).toUpperCase() + tab.slice(1)}
+            </button>
+          ))}
+          <div className="navbar-right">
+            <span className="nav-user">{userEmail}</span>
+            <button className="btn-logout" onClick={handleLogout}>Sign Out</button>
+          </div>
+        </nav>
+      );
+    }
+
+    // ── DASHBOARD ──────────────────────────────────────────
+    function Dashboard({ setActiveTab }) {
+      const [stats, setStats] = useState({ customers: 0, estimates: 0, approvedTotal: 0, pending: 0 });
+      const [recent, setRecent] = useState([]);
+      const [loading, setLoading] = useState(true);
+
+      useEffect(() => { load(); }, []);
+
+      async function load() {
+        setLoading(true);
+        const [cRes, eRes] = await Promise.all([
+          db.from('customers').select('id', { count: 'exact' }),
+          db.from('estimates').select('*').order('created_at', { ascending: false }).limit(5),
+        ]);
+        const ests = eRes.data || [];
+        const approvedTotal = ests.filter(e => e.status === 'approved' || e.status === 'completed').reduce((s, e) => s + (parseFloat(e.amount) || 0), 0);
+        setStats({ customers: cRes.count || 0, estimates: ests.length, approvedTotal, pending: ests.filter(e => e.status === 'draft' || e.status === 'sent').length });
+        setRecent(ests.slice(0, 5));
+        setLoading(false);
+      }
+
+      if (loading) return <div className="loading"><div className="spinner"></div>Loading...</div>;
+
+      return (
+        <>
+          <h1 className="page-title">Dashboard</h1>
+          <div className="stats-grid">
+            <div className="stat-card">
+              <div className="stat-label">Total Customers</div>
+              <div className="stat-value">{stats.customers}</div>
+              <div className="stat-sub"><button onClick={() => setActiveTab('customers')} style={{background:'none',border:'none',color:'var(--blue)',cursor:'pointer',fontSize:'13px',padding:0}}>View all →</button></div>
+            </div>
+            <div className="stat-card">
+              <div className="stat-label">Total Estimates</div>
+              <div className="stat-value">{stats.estimates}</div>
+              <div className="stat-sub"><button onClick={() => setActiveTab('estimates')} style={{background:'none',border:'none',color:'var(--blue)',cursor:'pointer',fontSize:'13px',padding:0}}>View all →</button></div>
+            </div>
+            <div className="stat-card green">
+              <div className="stat-label">Approved Value</div>
+              <div className="stat-value">${stats.approvedTotal.toLocaleString('en-US', {maximumFractionDigits:0})}</div>
+              <div className="stat-sub">Approved &amp; completed</div>
+            </div>
+            <div className="stat-card amber">
+              <div className="stat-label">Pending</div>
+              <div className="stat-value">{stats.pending}</div>
+              <div className="stat-sub">Draft &amp; sent</div>
+            </div>
+          </div>
+          <div className="card">
+            <div className="section-header">Recent Estimates</div>
+            {recent.length === 0 ? (
+              <div className="empty-state"><div className="empty-icon">📋</div><div>No estimates yet.</div></div>
+            ) : (
+              <div className="table-wrapper">
+                <table>
+                  <thead><tr><th>Customer</th><th>Title</th><th>Amount</th><th>Status</th><th>Date</th></tr></thead>
+                  <tbody>
+                    {recent.map(e => (
+                      <tr key={e.id}>
+                        <td>{e.customer_name || '—'}</td>
+                        <td>{e.title}</td>
+                        <td>{e.amount != null ? `$${parseFloat(e.amount).toLocaleString()}` : '—'}</td>
+                        <td><span className={`badge badge-${e.status}`}>{e.status}</span></td>
+                        <td>{e.estimate_date || '—'}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </div>
+        </>
+      );
+    }
+
+    // ── CUSTOMERS ──────────────────────────────────────────
+    const EMPTY_C = { name: '', phone: '', email: '', address: '', notes: '' };
+
+    function Customers() {
+      const [list, setList] = useState([]);
+      const [loading, setLoading] = useState(true);
+      const [search, setSearch] = useState('');
+      const [show, setShow] = useState(false);
+      const [editing, setEditing] = useState(null);
+      const [form, setForm] = useState(EMPTY_C);
+      const [saving, setSaving] = useState(false);
+      const [error, setError] = useState('');
+
+      useEffect(() => { load(); }, []);
+
+      async function load() {
+        setLoading(true);
+        const { data } = await db.from('customers').select('*').order('name');
+        setList(data || []);
+        setLoading(false);
+      }
+
+      function openAdd() { setEditing(null); setForm(EMPTY_C); setError(''); setShow(true); }
+      function openEdit(c) { setEditing(c); setForm({ name: c.name||'', phone: c.phone||'', email: c.email||'', address: c.address||'', notes: c.notes||'' }); setError(''); setShow(true); }
+      function close() { setShow(false); setEditing(null); setForm(EMPTY_C); setError(''); }
+      function change(e) { setForm(f => ({ ...f, [e.target.name]: e.target.value })); }
+
+      async function save() {
+        if (!form.name.trim()) { setError('Name is required.'); return; }
+        setSaving(true); setError('');
+        const op = editing ? db.from('customers').update(form).eq('id', editing.id) : db.from('customers').insert(form);
+        const { error } = await op;
+        if (error) { setError(error.message); setSaving(false); return; }
+        setSaving(false); close(); load();
+      }
+
+      async function del(c) {
+        if (!confirm(`Delete ${c.name}?`)) return;
+        await db.from('customers').delete().eq('id', c.id);
+        load();
+      }
+
+      const filtered = list.filter(c => [c.name, c.phone, c.email, c.address].join(' ').toLowerCase().includes(search.toLowerCase()));
+
+      return (
+        <>
+          <div className="page-header">
+            <h1 className="page-title" style={{margin:0}}>Customers</h1>
+            <button className="btn-add" onClick={openAdd}>+ Add Customer</button>
+          </div>
+          <div className="card">
+            <div className="search-bar">
+              <input type="text" placeholder="Search customers..." value={search} onChange={e => setSearch(e.target.value)} />
+            </div>
+            {loading ? <div className="loading"><div className="spinner"></div>Loading...</div>
+            : filtered.length === 0 ? <div className="empty-state"><div className="empty-icon">👥</div><div>{search ? 'No results.' : 'No customers yet.'}</div></div>
+            : <div className="table-wrapper"><table>
+                <thead><tr><th>Name</th><th>Phone</th><th>Email</th><th>Address</th><th>Actions</th></tr></thead>
+                <tbody>
+                  {filtered.map(c => (
+                    <tr key={c.id}>
+                      <td style={{fontWeight:600}}>{c.name}</td>
+                      <td>{c.phone||'—'}</td>
+                      <td>{c.email||'—'}</td>
+                      <td>{c.address||'—'}</td>
+                      <td><div className="action-btns">
+                        <button className="btn-edit" onClick={() => openEdit(c)}>Edit</button>
+                        <button className="btn-delete" onClick={() => del(c)}>Delete</button>
+                      </div></td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table></div>
+            }
+          </div>
+          {show && (
+            <div className="modal-overlay" onClick={e => e.target === e.currentTarget && close()}>
+              <div className="modal">
+                <div className="modal-header">
+                  <span className="modal-title">{editing ? 'Edit Customer' : 'Add Customer'}</span>
+                  <button className="modal-close" onClick={close}>×</button>
+                </div>
+                <div className="modal-body">
+                  {error && <div className="error-msg">{error}</div>}
+                  <div className="form-group"><label>Name *</label><input name="name" value={form.name} onChange={change} placeholder="Full name" autoFocus /></div>
+                  <div className="form-row">
+                    <div className="form-group"><label>Phone</label><input name="phone" value={form.phone} onChange={change} placeholder="(555) 000-0000" /></div>
+                    <div className="form-group"><label>Email</label><input name="email" type="email" value={form.email} onChange={change} placeholder="email@example.com" /></div>
+                  </div>
+                  <div className="form-group"><label>Address</label><input name="address" value={form.address} onChange={change} placeholder="123 Main St, City, ST" /></div>
+                  <div className="form-group"><label>Notes</label><textarea name="notes" value={form.notes} onChange={change} placeholder="Any notes..." /></div>
+                </div>
+                <div className="modal-footer">
+                  <button className="btn-cancel" onClick={close}>Cancel</button>
+                  <button className="btn-save" onClick={save} disabled={saving}>{saving ? 'Saving...' : 'Save Customer'}</button>
+                </div>
+              </div>
+            </div>
+          )}
+        </>
+      );
+    }
+
+    // ── ESTIMATES ──────────────────────────────────────────
+    const STATUSES = ['draft','sent','approved','declined','completed'];
+    const EMPTY_E = { customer_name: '', title: '', description: '', amount: '', status: 'draft', estimate_date: new Date().toISOString().split('T')[0] };
+
+    function Estimates() {
+      const [list, setList] = useState([]);
+      const [customers, setCustomers] = useState([]);
+      const [loading, setLoading] = useState(true);
+      const [search, setSearch] = useState('');
+      const [filterStatus, setFilterStatus] = useState('all');
+      const [show, setShow] = useState(false);
+      const [editing, setEditing] = useState(null);
+      const [form, setForm] = useState(EMPTY_E);
+      const [saving, setSaving] = useState(false);
+      const [error, setError] = useState('');
+
+      useEffect(() => { load(); }, []);
+
+      async function load() {
+        setLoading(true);
+        const [eRes, cRes] = await Promise.all([
+          db.from('estimates').select('*').order('created_at', { ascending: false }),
+          db.from('customers').select('id,name').order('name'),
+        ]);
+        setList(eRes.data || []);
+        setCustomers(cRes.data || []);
+        setLoading(false);
+      }
+
+      function openAdd() { setEditing(null); setForm(EMPTY_E); setError(''); setShow(true); }
+      function openEdit(e) { setEditing(e); setForm({ customer_name: e.customer_name||'', title: e.title||'', description: e.description||'', amount: e.amount != null ? String(e.amount) : '', status: e.status||'draft', estimate_date: e.estimate_date||new Date().toISOString().split('T')[0] }); setError(''); setShow(true); }
+      function close() { setShow(false); setEditing(null); setForm(EMPTY_E); setError(''); }
+      function change(e) { setForm(f => ({ ...f, [e.target.name]: e.target.value })); }
+
+      async function save() {
+        if (!form.title.trim()) { setError('Title is required.'); return; }
+        setSaving(true); setError('');
+        const payload = { customer_name: form.customer_name, title: form.title, description: form.description, amount: form.amount !== '' ? parseFloat(form.amount) : null, status: form.status, estimate_date: form.estimate_date || null };
+        const op = editing ? db.from('estimates').update(payload).eq('id', editing.id) : db.from('estimates').insert(payload);
+        const { error } = await op;
+        if (error) { setError(error.message); setSaving(false); return; }
+        setSaving(false); close(); load();
+      }
+
+      async function del(e) {
+        if (!confirm(`Delete "${e.title}"?`)) return;
+        await db.from('estimates').delete().eq('id', e.id);
+        load();
+      }
+
+      const filtered = list.filter(e => {
+        const matchSearch = [e.customer_name, e.title, e.description].join(' ').toLowerCase().includes(search.toLowerCase());
+        const matchStatus = filterStatus === 'all' || e.status === filterStatus;
+        return matchSearch && matchStatus;
+      });
+
+      const total = filtered.reduce((s, e) => s + (parseFloat(e.amount) || 0), 0);
+
+      return (
+        <>
+          <div className="page-header">
+            <h1 className="page-title" style={{margin:0}}>Estimates</h1>
+            <button className="btn-add" onClick={openAdd}>+ New Estimate</button>
+          </div>
+          <div className="card">
+            <div className="search-bar">
+              <input type="text" placeholder="Search estimates..." value={search} onChange={e => setSearch(e.target.value)} />
+              <select value={filterStatus} onChange={e => setFilterStatus(e.target.value)} style={{padding:'8px 10px',border:'1.5px solid var(--border)',borderRadius:'var(--radius)',fontSize:'14px',background:'white',minWidth:'120px'}}>
+                <option value="all">All Status</option>
+                {STATUSES.map(s => <option key={s} value={s}>{s.charAt(0).toUpperCase()+s.slice(1)}</option>)}
+              </select>
+            </div>
+            {loading ? <div className="loading"><div className="spinner"></div>Loading...</div>
+            : filtered.length === 0 ? <div className="empty-state"><div className="empty-icon">📋</div><div>{search || filterStatus !== 'all' ? 'No results.' : 'No estimates yet.'}</div></div>
+            : <>
+                <div className="table-wrapper"><table>
+                  <thead><tr><th>Customer</th><th>Title</th><th>Date</th><th>Amount</th><th>Status</th><th>Actions</th></tr></thead>
+                  <tbody>
+                    {filtered.map(e => (
+                      <tr key={e.id}>
+                        <td>{e.customer_name||'—'}</td>
+                        <td style={{fontWeight:600}}>{e.title}</td>
+                        <td>{e.estimate_date||'—'}</td>
+                        <td>{e.amount != null ? `$${parseFloat(e.amount).toLocaleString()}` : '—'}</td>
+                        <td><span className={`badge badge-${e.status}`}>{e.status}</span></td>
+                        <td><div className="action-btns">
+                          <button className="btn-edit" onClick={() => openEdit(e)}>Edit</button>
+                          <button className="btn-delete" onClick={() => del(e)}>Delete</button>
+                        </div></td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table></div>
+                <div className="table-footer">
+                  <span>{filtered.length} estimate{filtered.length !== 1 ? 's' : ''}</span>
+                  <span style={{fontWeight:600,color:'var(--text)'}}>Total: ${total.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}</span>
+                </div>
+              </>
+            }
+          </div>
+          {show && (
+            <div className="modal-overlay" onClick={e => e.target === e.currentTarget && close()}>
+              <div className="modal">
+                <div className="modal-header">
+                  <span className="modal-title">{editing ? 'Edit Estimate' : 'New Estimate'}</span>
+                  <button className="modal-close" onClick={close}>×</button>
+                </div>
+                <div className="modal-body">
+                  {error && <div className="error-msg">{error}</div>}
+                  <div className="form-group">
+                    <label>Customer</label>
+                    {customers.length > 0
+                      ? <select name="customer_name" value={form.customer_name} onChange={change}>
+                          <option value="">— Select a customer —</option>
+                          {customers.map(c => <option key={c.id} value={c.name}>{c.name}</option>)}
+                        </select>
+                      : <input name="customer_name" value={form.customer_name} onChange={change} placeholder="Customer name" />
+                    }
+                  </div>
+                  <div className="form-group"><label>Title *</label><input name="title" value={form.title} onChange={change} placeholder="e.g. Bathroom Remodel" /></div>
+                  <div className="form-group"><label>Description</label><textarea name="description" value={form.description} onChange={change} placeholder="Scope of work, materials, details..." /></div>
+                  <div className="form-row">
+                    <div className="form-group"><label>Amount ($)</label><input name="amount" type="number" min="0" step="0.01" value={form.amount} onChange={change} placeholder="0.00" /></div>
+                    <div className="form-group"><label>Date</label><input name="estimate_date" type="date" value={form.estimate_date} onChange={change} /></div>
+                  </div>
+                  <div className="form-group"><label>Status</label>
+                    <select name="status" value={form.status} onChange={change}>
+                      {STATUSES.map(s => <option key={s} value={s}>{s.charAt(0).toUpperCase()+s.slice(1)}</option>)}
+                    </select>
+                  </div>
+                </div>
+                <div className="modal-footer">
+                  <button className="btn-cancel" onClick={close}>Cancel</button>
+                  <button className="btn-save" onClick={save} disabled={saving}>{saving ? 'Saving...' : 'Save Estimate'}</button>
+                </div>
+              </div>
+            </div>
+          )}
+        </>
+      );
+    }
+
+    // ── APP ────────────────────────────────────────────────
+    function App() {
+      const [session, setSession] = useState(null);
+      const [loading, setLoading] = useState(true);
+      const [activeTab, setActiveTab] = useState('dashboard');
+
+      useEffect(() => {
+        db.auth.getSession().then(({ data: { session } }) => { setSession(session); setLoading(false); });
+        const { data: { subscription } } = db.auth.onAuthStateChange((_e, s) => setSession(s));
+        return () => subscription.unsubscribe();
+      }, []);
+
+      if (loading) return <div className="loading"><div className="spinner"></div>Loading...</div>;
+      if (!session) return <Login />;
+
+      return (
+        <>
+          <NavBar activeTab={activeTab} setActiveTab={setActiveTab} userEmail={session.user.email} />
+          <main className="main-content">
+            {activeTab === 'dashboard' && <Dashboard setActiveTab={setActiveTab} />}
+            {activeTab === 'customers' && <Customers />}
+            {activeTab === 'estimates' && <Estimates />}
+          </main>
+        </>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+</body>
+</html>
