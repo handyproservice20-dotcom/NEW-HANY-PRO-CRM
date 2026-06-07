@@ -35,15 +35,11 @@
 
     .main-content { max-width: 1100px; margin: 0 auto; padding: 28px 20px; }
 
-    /* LOGIN */
     .login-page { min-height: 100vh; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%); padding: 20px; }
     .login-card { background: white; border-radius: 12px; padding: 40px; width: 100%; max-width: 400px; box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
     .login-logo { text-align: center; font-size: 40px; margin-bottom: 8px; }
     .login-title { text-align: center; font-size: 22px; font-weight: 700; margin-bottom: 4px; }
     .login-subtitle { text-align: center; color: var(--text-soft); font-size: 14px; margin-bottom: 28px; }
-    .login-divider { display: flex; align-items: center; gap: 12px; margin: 20px 0; }
-    .login-divider::before, .login-divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
-    .login-divider span { color: var(--text-soft); font-size: 12px; white-space: nowrap; }
     .login-tab-row { display: flex; border: 1.5px solid var(--border); border-radius: var(--radius); overflow: hidden; margin-bottom: 24px; }
     .login-tab { flex: 1; padding: 9px; background: white; border: none; font-size: 14px; font-weight: 500; color: var(--text-soft); transition: all 0.15s; }
     .login-tab.active { background: var(--blue); color: white; }
@@ -129,9 +125,8 @@
 
     .table-footer { padding: 12px 16px; border-top: 1px solid var(--border); font-size: 13px; color: var(--text-soft); display: flex; justify-content: space-between; }
 
-    /* MATERIALS SECTION */
     .materials-section { margin-top: 20px; border: 1.5px solid var(--border); border-radius: var(--radius); overflow: hidden; }
-    .materials-header { background: var(--gray-light); padding: 12px 16px; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-soft); display: flex; align-items: center; justify-content: space-between; }
+    .materials-header { background: var(--gray-light); padding: 12px 16px; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-soft); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 6px; }
     .materials-search-row { padding: 12px 16px; border-bottom: 1px solid var(--border); display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
     .materials-search-row input { flex: 1; min-width: 160px; padding: 8px 12px; border: 1.5px solid var(--border); border-radius: var(--radius); font-size: 13px; }
     .materials-search-row input:focus { outline: none; border-color: var(--blue); }
@@ -140,10 +135,10 @@
     .btn-search-mat:hover { background: var(--blue-dark); }
     .btn-search-mat:disabled { opacity: 0.6; cursor: default; }
     .mat-results { padding: 0; }
-    .mat-result-item { display: flex; align-items: center; gap: 10px; padding: 10px 16px; border-bottom: 1px solid var(--border); font-size: 13px; }
+    .mat-result-item { display: flex; align-items: center; gap: 10px; padding: 10px 16px; border-bottom: 1px solid var(--border); font-size: 13px; flex-wrap: wrap; }
     .mat-result-item:last-child { border-bottom: none; }
     .mat-result-item:hover { background: var(--blue-light); }
-    .mat-name { flex: 1; font-weight: 500; }
+    .mat-name { flex: 1; font-weight: 500; min-width: 120px; }
     .mat-store { font-size: 11px; font-weight: 700; padding: 2px 7px; border-radius: 10px; white-space: nowrap; }
     .mat-store.homedepot { background: #fff0e6; color: #f96302; }
     .mat-store.lowes { background: #e6f0ff; color: #004990; }
@@ -152,9 +147,9 @@
     .btn-add-mat:hover { background: #dcfce7; }
     .mat-added-list { padding: 12px 16px; border-top: 1px solid var(--border); background: #fafafa; }
     .mat-added-title { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-soft); margin-bottom: 8px; }
-    .mat-added-item { display: flex; align-items: center; gap: 8px; padding: 6px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+    .mat-added-item { display: flex; align-items: center; gap: 8px; padding: 6px 0; border-bottom: 1px solid var(--border); font-size: 13px; flex-wrap: wrap; }
     .mat-added-item:last-child { border-bottom: none; }
-    .mat-added-name { flex: 1; }
+    .mat-added-name { flex: 1; min-width: 100px; }
     .mat-qty-input { width: 54px; padding: 4px 6px; border: 1.5px solid var(--border); border-radius: 5px; font-size: 13px; text-align: center; }
     .mat-added-price { font-weight: 600; color: var(--green); min-width: 64px; text-align: right; }
     .btn-remove-mat { background: none; border: none; color: var(--red); font-size: 18px; line-height: 1; padding: 0 4px; }
@@ -169,6 +164,7 @@
       .form-row { grid-template-columns: 1fr; }
       .materials-search-row { flex-direction: column; }
       .materials-search-row input { width: 100%; }
+      .zip-input { width: 100% !important; }
     }
   </style>
 </head>
@@ -176,7 +172,7 @@
   <div id="root"></div>
 
   <script type="text/babel">
-    const { useState, useEffect, useCallback } = React;
+    const { useState, useEffect } = React;
     const { createClient } = supabase;
 
     const db = createClient(
@@ -184,10 +180,36 @@
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFyeWh2Zmloc3VwcHBycXhuc3pmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA3ODM2NjgsImV4cCI6MjA5NjM1OTY2OH0.Zj5I5oFhZ8qQqfPmnWklMkEhny_f73Uq2wBkGAE-Mqw'
     );
 
+    // ── ERROR BOUNDARY (stops the white screen of death) ───
+    class ErrorBoundary extends React.Component {
+      constructor(props) { super(props); this.state = { hasError: false, msg: '' }; }
+      static getDerivedStateFromError(error) { return { hasError: true, msg: error && error.message ? error.message : String(error) }; }
+      componentDidCatch(error, info) { console.error('Caught by ErrorBoundary:', error, info); }
+      reset() { this.setState({ hasError: false, msg: '' }); }
+      render() {
+        if (this.state.hasError) {
+          return (
+            <div style={{padding:'40px 20px',maxWidth:'500px',margin:'40px auto',textAlign:'center'}}>
+              <div style={{fontSize:'40px',marginBottom:'12px'}}>⚠️</div>
+              <h2 style={{fontSize:'18px',marginBottom:'10px'}}>Something hiccuped</h2>
+              <p style={{color:'var(--text-soft)',fontSize:'14px',marginBottom:'8px'}}>
+                The app caught an error instead of going blank. You can close this and keep working.
+              </p>
+              <p style={{color:'var(--text-soft)',fontSize:'12px',marginBottom:'20px',fontFamily:'monospace',background:'#f3f4f6',padding:'8px',borderRadius:'6px',wordBreak:'break-word'}}>
+                {this.state.msg}
+              </p>
+              <button className="btn-primary" style={{maxWidth:'200px',margin:'0 auto'}} onClick={() => this.reset()}>Back to App</button>
+            </div>
+          );
+        }
+        return this.props.children;
+      }
+    }
+
     // ── LOGIN ──────────────────────────────────────────────
     function Login() {
-      const [tab, setTab] = useState('signin'); // 'signin' | 'signup'
-      const [mode, setMode] = useState('main'); // 'main' | 'forgot' | 'sent'
+      const [tab, setTab] = useState('signin');
+      const [mode, setMode] = useState('main');
       const [email, setEmail] = useState('');
       const [password, setPassword] = useState('');
       const [confirmPw, setConfirmPw] = useState('');
@@ -196,21 +218,20 @@
       const [error, setError] = useState('');
       const [success, setSuccess] = useState('');
 
-      async function handleSignIn(e) {
-        e.preventDefault();
+      async function handleSignIn(ev) {
+        ev.preventDefault();
         setLoading(true); setError(''); setSuccess('');
         const { error } = await db.auth.signInWithPassword({ email, password });
         if (error) { setError(error.message); setLoading(false); }
       }
 
-      async function handleSignUp(e) {
-        e.preventDefault();
+      async function handleSignUp(ev) {
+        ev.preventDefault();
         if (password !== confirmPw) { setError("Passwords don't match."); return; }
         if (password.length < 6) { setError("Password must be at least 6 characters."); return; }
         setLoading(true); setError(''); setSuccess('');
         const { error } = await db.auth.signUp({
-          email,
-          password,
+          email, password,
           options: { data: { full_name: fullName } }
         });
         if (error) { setError(error.message); setLoading(false); return; }
@@ -219,12 +240,10 @@
         setTab('signin');
       }
 
-      async function handleForgot(e) {
-        e.preventDefault();
+      async function handleForgot(ev) {
+        ev.preventDefault();
         setLoading(true); setError(''); setSuccess('');
-        const { error } = await db.auth.resetPasswordForEmail(email, {
-          redirectTo: window.location.href,
-        });
+        const { error } = await db.auth.resetPasswordForEmail(email, { redirectTo: window.location.href });
         if (error) { setError(error.message); setLoading(false); return; }
         setLoading(false);
         setMode('sent');
@@ -255,9 +274,7 @@
                 <label>Email Address</label>
                 <input type="email" value={email} onChange={ev => setEmail(ev.target.value)} placeholder="you@example.com" required autoFocus />
               </div>
-              <button type="submit" className="btn-primary" disabled={loading}>
-                {loading ? 'Sending...' : 'Send Reset Email'}
-              </button>
+              <button type="submit" className="btn-primary" disabled={loading}>{loading ? 'Sending...' : 'Send Reset Email'}</button>
             </form>
             <p style={{textAlign:'center',marginTop:'16px'}}>
               <button onClick={() => { setMode('main'); setError(''); }} className="btn-link">← Back to Sign In</button>
@@ -272,15 +289,12 @@
             <div className="login-logo">🔧</div>
             <h1 className="login-title">Handy Pro CRM</h1>
             <p className="login-subtitle">Your business, all in one place</p>
-
             <div className="login-tab-row">
               <button className={`login-tab ${tab === 'signin' ? 'active' : ''}`} onClick={() => { setTab('signin'); setError(''); setSuccess(''); }}>Sign In</button>
               <button className={`login-tab ${tab === 'signup' ? 'active' : ''}`} onClick={() => { setTab('signup'); setError(''); setSuccess(''); }}>Create Account</button>
             </div>
-
             {error && <div className="error-msg">{error}</div>}
             {success && <div className="success-msg">{success}</div>}
-
             {tab === 'signin' ? (
               <form onSubmit={handleSignIn}>
                 <div className="form-group">
@@ -291,9 +305,7 @@
                   <label>Password</label>
                   <input type="password" value={password} onChange={ev => setPassword(ev.target.value)} placeholder="••••••••" required />
                 </div>
-                <button type="submit" className="btn-primary" disabled={loading}>
-                  {loading ? 'Signing in...' : 'Sign In'}
-                </button>
+                <button type="submit" className="btn-primary" disabled={loading}>{loading ? 'Signing in...' : 'Sign In'}</button>
                 <p style={{textAlign:'center',marginTop:'14px'}}>
                   <button type="button" onClick={() => { setMode('forgot'); setError(''); }} className="btn-link">Forgot password?</button>
                 </p>
@@ -316,9 +328,7 @@
                   <label>Confirm Password</label>
                   <input type="password" value={confirmPw} onChange={ev => setConfirmPw(ev.target.value)} placeholder="••••••••" required />
                 </div>
-                <button type="submit" className="btn-primary" disabled={loading}>
-                  {loading ? 'Creating...' : 'Create Account'}
-                </button>
+                <button type="submit" className="btn-primary" disabled={loading}>{loading ? 'Creating...' : 'Create Account'}</button>
               </form>
             )}
           </div>
@@ -326,7 +336,7 @@
       );
     }
 
-    // ── RESET PASSWORD (after clicking email link) ─────────
+    // ── RESET PASSWORD ─────────────────────────────────────
     function ResetPassword({ onDone }) {
       const [password, setPassword] = useState('');
       const [confirm, setConfirm] = useState('');
@@ -341,8 +351,7 @@
         setLoading(true); setError('');
         const { error } = await db.auth.updateUser({ password });
         if (error) { setError(error.message); setLoading(false); return; }
-        setLoading(false);
-        setDone(true);
+        setLoading(false); setDone(true);
         setTimeout(onDone, 2000);
       }
 
@@ -365,9 +374,7 @@
                       <label>Confirm Password</label>
                       <input type="password" value={confirm} onChange={ev => setConfirm(ev.target.value)} placeholder="••••••••" required />
                     </div>
-                    <button type="submit" className="btn-primary" disabled={loading}>
-                      {loading ? 'Saving...' : 'Set New Password'}
-                    </button>
+                    <button type="submit" className="btn-primary" disabled={loading}>{loading ? 'Saving...' : 'Set New Password'}</button>
                   </form>
                 </>
             }
@@ -405,14 +412,18 @@
 
       async function loadData() {
         setLoading(true);
-        const [cRes, eRes] = await Promise.all([
-          db.from('customers').select('id', { count: 'exact' }),
-          db.from('estimates').select('*').order('created_at', { ascending: false }).limit(5),
-        ]);
-        const ests = eRes.data || [];
-        const approvedTotal = ests.filter(e => e.status === 'approved' || e.status === 'completed').reduce((s, e) => s + (parseFloat(e.amount) || 0), 0);
-        setStats({ customers: cRes.count || 0, estimates: ests.length, approvedTotal, pending: ests.filter(e => e.status === 'draft' || e.status === 'sent').length });
-        setRecent(ests.slice(0, 5));
+        try {
+          const [cRes, eRes] = await Promise.all([
+            db.from('customers').select('id', { count: 'exact' }),
+            db.from('estimates').select('*').order('created_at', { ascending: false }).limit(5),
+          ]);
+          const ests = eRes.data || [];
+          const approvedTotal = ests.filter(e => e.status === 'approved' || e.status === 'completed').reduce((s, e) => s + (parseFloat(e.amount) || 0), 0);
+          setStats({ customers: cRes.count || 0, estimates: ests.length, approvedTotal, pending: ests.filter(e => e.status === 'draft' || e.status === 'sent').length });
+          setRecent(ests.slice(0, 5));
+        } catch (err) {
+          console.error(err);
+        }
         setLoading(false);
       }
 
@@ -487,22 +498,26 @@
 
       async function loadCustomers() {
         setLoading(true);
-        const { data } = await db.from('customers').select('*').order('name');
-        setList(data || []);
+        try {
+          const { data } = await db.from('customers').select('*').order('name');
+          setList(data || []);
+        } catch (err) { console.error(err); }
         setLoading(false);
       }
 
       function openAdd() { setEditing(null); setForm(EMPTY_C); setError(''); setShow(true); }
       function openEdit(c) { setEditing(c); setForm({ name: c.name||'', phone: c.phone||'', email: c.email||'', address: c.address||'', notes: c.notes||'' }); setError(''); setShow(true); }
       function closeModal() { setShow(false); setEditing(null); setForm(EMPTY_C); setError(''); }
-      function handleChange(ev) { setForm(f => ({ ...f, [ev.target.name]: ev.target.value })); }
+      function handleChange(ev) { const { name, value } = ev.target; setForm(f => ({ ...f, [name]: value })); }
 
       async function saveCustomer() {
         if (!form.name.trim()) { setError('Name is required.'); return; }
         setSaving(true); setError('');
-        const op = editing ? db.from('customers').update(form).eq('id', editing.id) : db.from('customers').insert(form);
-        const { error: dbErr } = await op;
-        if (dbErr) { setError(dbErr.message); setSaving(false); return; }
+        try {
+          const op = editing ? db.from('customers').update(form).eq('id', editing.id) : db.from('customers').insert(form);
+          const { error: dbErr } = await op;
+          if (dbErr) { setError(dbErr.message); setSaving(false); return; }
+        } catch (err) { setError(String(err)); setSaving(false); return; }
         setSaving(false); closeModal(); loadCustomers();
       }
 
@@ -573,134 +588,105 @@
       );
     }
 
-    // ── MATERIAL SEARCH ────────────────────────────────────
-    // Uses the Open Library of product data via DuckDuckGo instant answer API (CORS-friendly)
-    // and falls back to a curated common materials database for accuracy
+    // ── MATERIALS DATA ─────────────────────────────────────
     const COMMON_MATERIALS = [
-      // Lumber
-      { name: '2x4x8 Lumber (Pine)', store: 'homedepot', price: 4.48, unit: 'each', category: 'lumber' },
-      { name: '2x4x10 Lumber (Pine)', store: 'homedepot', price: 5.98, unit: 'each', category: 'lumber' },
-      { name: '2x6x8 Lumber (Pine)', store: 'homedepot', price: 7.28, unit: 'each', category: 'lumber' },
-      { name: '2x6x10 Lumber (Pine)', store: 'homedepot', price: 9.48, unit: 'each', category: 'lumber' },
-      { name: '4x4x8 Post (Pressure Treated)', store: 'homedepot', price: 10.97, unit: 'each', category: 'lumber' },
-      { name: '2x4x8 Pressure Treated Lumber', store: 'lowes', price: 5.28, unit: 'each', category: 'lumber' },
-      { name: '2x6x8 Pressure Treated Lumber', store: 'lowes', price: 7.98, unit: 'each', category: 'lumber' },
-      { name: '4x4x8 Pressure Treated Post', store: 'lowes', price: 11.48, unit: 'each', category: 'lumber' },
-      { name: '5/4x6x12 Decking (Pressure Treated)', store: 'homedepot', price: 14.97, unit: 'each', category: 'lumber' },
-      { name: '5/4x6x16 Decking (Pressure Treated)', store: 'homedepot', price: 19.97, unit: 'each', category: 'lumber' },
-      { name: '5/4x6x12 Composite Decking (Brown)', store: 'lowes', price: 22.48, unit: 'each', category: 'lumber' },
-      { name: 'Plywood 3/4" 4x8 (CDX)', store: 'homedepot', price: 42.97, unit: 'sheet', category: 'lumber' },
-      { name: 'Plywood 1/2" 4x8 (CDX)', store: 'homedepot', price: 34.97, unit: 'sheet', category: 'lumber' },
-      { name: 'OSB 7/16" 4x8', store: 'lowes', price: 19.98, unit: 'sheet', category: 'lumber' },
-      // Drywall
-      { name: 'Drywall 1/2" 4x8 Sheet', store: 'homedepot', price: 13.48, unit: 'sheet', category: 'drywall' },
-      { name: 'Drywall 5/8" 4x8 Sheet (Fire)', store: 'homedepot', price: 15.98, unit: 'sheet', category: 'drywall' },
-      { name: 'Drywall 1/2" 4x12 Sheet', store: 'lowes', price: 19.97, unit: 'sheet', category: 'drywall' },
-      { name: 'Joint Compound 5 Gal', store: 'homedepot', price: 17.97, unit: 'bucket', category: 'drywall' },
-      { name: 'Drywall Tape 250ft', store: 'lowes', price: 4.48, unit: 'roll', category: 'drywall' },
-      // Roofing
-      { name: 'Architectural Shingles (Bundle)', store: 'homedepot', price: 36.97, unit: 'bundle', category: 'roofing' },
-      { name: 'Roofing Felt 15lb 4sq', store: 'homedepot', price: 21.97, unit: 'roll', category: 'roofing' },
-      { name: 'Roofing Nails 5lb', store: 'lowes', price: 12.48, unit: 'box', category: 'roofing' },
-      { name: 'Ridge Cap Shingles (Bundle)', store: 'lowes', price: 42.98, unit: 'bundle', category: 'roofing' },
-      { name: 'Ice & Water Shield 2sq', store: 'homedepot', price: 49.97, unit: 'roll', category: 'roofing' },
-      // Concrete
-      { name: 'Concrete Mix 60lb (Quikrete)', store: 'homedepot', price: 5.97, unit: 'bag', category: 'concrete' },
-      { name: 'Concrete Mix 80lb (Quikrete)', store: 'homedepot', price: 7.48, unit: 'bag', category: 'concrete' },
-      { name: 'Concrete Mix 60lb', store: 'lowes', price: 6.28, unit: 'bag', category: 'concrete' },
-      { name: 'Rebar 1/2" x 20ft', store: 'homedepot', price: 11.97, unit: 'each', category: 'concrete' },
-      { name: 'Wire Mesh 4x8 Panel', store: 'homedepot', price: 9.47, unit: 'panel', category: 'concrete' },
-      // Flooring
-      { name: 'Vinyl Plank Flooring (sq ft)', store: 'homedepot', price: 1.79, unit: 'sq ft', category: 'flooring' },
-      { name: 'Laminate Flooring (sq ft)', store: 'lowes', price: 1.49, unit: 'sq ft', category: 'flooring' },
-      { name: 'Ceramic Tile 12x12 (sq ft)', store: 'homedepot', price: 2.18, unit: 'sq ft', category: 'flooring' },
-      { name: 'Hardwood Flooring 3/4" (sq ft)', store: 'lowes', price: 4.99, unit: 'sq ft', category: 'flooring' },
-      { name: 'Floor Underlayment 100sq ft', store: 'homedepot', price: 22.97, unit: 'roll', category: 'flooring' },
-      // Paint
-      { name: 'Interior Paint 1gal (White)', store: 'homedepot', price: 29.98, unit: 'gallon', category: 'paint' },
-      { name: 'Exterior Paint 1gal', store: 'lowes', price: 34.98, unit: 'gallon', category: 'paint' },
-      { name: 'Primer 1gal', store: 'homedepot', price: 24.97, unit: 'gallon', category: 'paint' },
-      { name: 'Paint Roller Set', store: 'homedepot', price: 9.97, unit: 'set', category: 'paint' },
-      // Hardware / Fasteners
-      { name: 'Deck Screws 5lb (#10x3")', store: 'homedepot', price: 19.97, unit: 'box', category: 'hardware' },
-      { name: 'Framing Nails 3" 5lb', store: 'lowes', price: 14.98, unit: 'box', category: 'hardware' },
-      { name: 'Joist Hanger 2x10 (10pk)', store: 'homedepot', price: 11.97, unit: 'pack', category: 'hardware' },
-      { name: 'Lag Bolts 3/8"x3" (50pk)', store: 'lowes', price: 12.48, unit: 'pack', category: 'hardware' },
-      { name: 'Post Base 4x4', store: 'homedepot', price: 8.97, unit: 'each', category: 'hardware' },
-      // Insulation
-      { name: 'Fiberglass Batt R-13 16" (40 sq ft)', store: 'homedepot', price: 19.97, unit: 'bag', category: 'insulation' },
-      { name: 'Fiberglass Batt R-19 24" (40 sq ft)', store: 'lowes', price: 24.97, unit: 'bag', category: 'insulation' },
-      { name: 'Rigid Foam 2" 4x8', store: 'homedepot', price: 26.97, unit: 'sheet', category: 'insulation' },
-      // Doors / Windows
-      { name: 'Interior Door 32x80 (pre-hung)', store: 'homedepot', price: 149.00, unit: 'each', category: 'doors' },
-      { name: 'Exterior Door 36x80 (pre-hung)', store: 'homedepot', price: 279.00, unit: 'each', category: 'doors' },
-      { name: 'Window 36x48 (double hung)', store: 'lowes', price: 249.00, unit: 'each', category: 'windows' },
+      { name: '2x4x8 Lumber (Pine)', store: 'homedepot', price: 4.48, unit: 'each', category: 'lumber wood stud' },
+      { name: '2x4x10 Lumber (Pine)', store: 'homedepot', price: 5.98, unit: 'each', category: 'lumber wood stud' },
+      { name: '2x6x8 Lumber (Pine)', store: 'homedepot', price: 7.28, unit: 'each', category: 'lumber wood' },
+      { name: '2x6x10 Lumber (Pine)', store: 'homedepot', price: 9.48, unit: 'each', category: 'lumber wood' },
+      { name: '4x4x8 Post (Pressure Treated)', store: 'homedepot', price: 10.97, unit: 'each', category: 'lumber wood post' },
+      { name: '2x4x8 Pressure Treated Lumber', store: 'lowes', price: 5.28, unit: 'each', category: 'lumber wood stud deck' },
+      { name: '2x6x8 Pressure Treated Lumber', store: 'lowes', price: 7.98, unit: 'each', category: 'lumber wood deck' },
+      { name: '4x4x8 Pressure Treated Post', store: 'lowes', price: 11.48, unit: 'each', category: 'lumber wood post deck' },
+      { name: '5/4x6x12 Decking (Pressure Treated)', store: 'homedepot', price: 14.97, unit: 'each', category: 'lumber deck decking' },
+      { name: '5/4x6x16 Decking (Pressure Treated)', store: 'homedepot', price: 19.97, unit: 'each', category: 'lumber deck decking' },
+      { name: '5/4x6x12 Composite Decking (Brown)', store: 'lowes', price: 22.48, unit: 'each', category: 'deck decking composite' },
+      { name: 'Plywood 3/4" 4x8 (CDX)', store: 'homedepot', price: 42.97, unit: 'sheet', category: 'plywood wood sheet' },
+      { name: 'Plywood 1/2" 4x8 (CDX)', store: 'homedepot', price: 34.97, unit: 'sheet', category: 'plywood wood sheet' },
+      { name: 'OSB 7/16" 4x8', store: 'lowes', price: 19.98, unit: 'sheet', category: 'osb plywood sheet wood' },
+      { name: 'Drywall 1/2" 4x8 Sheet', store: 'homedepot', price: 13.48, unit: 'sheet', category: 'drywall sheetrock gypsum wall' },
+      { name: 'Drywall 5/8" 4x8 Sheet (Fire)', store: 'homedepot', price: 15.98, unit: 'sheet', category: 'drywall sheetrock gypsum wall fire' },
+      { name: 'Drywall 1/2" 4x12 Sheet', store: 'lowes', price: 19.97, unit: 'sheet', category: 'drywall sheetrock gypsum wall' },
+      { name: 'Joint Compound 5 Gal', store: 'homedepot', price: 17.97, unit: 'bucket', category: 'drywall mud compound' },
+      { name: 'Drywall Tape 250ft', store: 'lowes', price: 4.48, unit: 'roll', category: 'drywall tape' },
+      { name: 'Architectural Shingles (Bundle)', store: 'homedepot', price: 36.97, unit: 'bundle', category: 'roofing roof shingles' },
+      { name: 'Roofing Felt 15lb 4sq', store: 'homedepot', price: 21.97, unit: 'roll', category: 'roofing roof felt underlayment' },
+      { name: 'Roofing Nails 5lb', store: 'lowes', price: 12.48, unit: 'box', category: 'roofing roof nails' },
+      { name: 'Ridge Cap Shingles (Bundle)', store: 'lowes', price: 42.98, unit: 'bundle', category: 'roofing roof ridge shingles' },
+      { name: 'Ice & Water Shield 2sq', store: 'homedepot', price: 49.97, unit: 'roll', category: 'roofing roof ice water shield' },
+      { name: 'Concrete Mix 60lb (Quikrete)', store: 'homedepot', price: 5.97, unit: 'bag', category: 'concrete cement quikrete' },
+      { name: 'Concrete Mix 80lb (Quikrete)', store: 'homedepot', price: 7.48, unit: 'bag', category: 'concrete cement quikrete' },
+      { name: 'Concrete Mix 60lb', store: 'lowes', price: 6.28, unit: 'bag', category: 'concrete cement' },
+      { name: 'Rebar 1/2" x 20ft', store: 'homedepot', price: 11.97, unit: 'each', category: 'concrete rebar steel' },
+      { name: 'Wire Mesh 4x8 Panel', store: 'homedepot', price: 9.47, unit: 'panel', category: 'concrete wire mesh' },
+      { name: 'Vinyl Plank Flooring (sq ft)', store: 'homedepot', price: 1.79, unit: 'sq ft', category: 'flooring floor vinyl plank lvp' },
+      { name: 'Laminate Flooring (sq ft)', store: 'lowes', price: 1.49, unit: 'sq ft', category: 'flooring floor laminate' },
+      { name: 'Ceramic Tile 12x12 (sq ft)', store: 'homedepot', price: 2.18, unit: 'sq ft', category: 'flooring floor tile ceramic' },
+      { name: 'Hardwood Flooring 3/4" (sq ft)', store: 'lowes', price: 4.99, unit: 'sq ft', category: 'flooring floor hardwood wood' },
+      { name: 'Floor Underlayment 100sq ft', store: 'homedepot', price: 22.97, unit: 'roll', category: 'flooring floor underlayment' },
+      { name: 'Interior Paint 1gal (White)', store: 'homedepot', price: 29.98, unit: 'gallon', category: 'paint interior' },
+      { name: 'Exterior Paint 1gal', store: 'lowes', price: 34.98, unit: 'gallon', category: 'paint exterior' },
+      { name: 'Primer 1gal', store: 'homedepot', price: 24.97, unit: 'gallon', category: 'paint primer' },
+      { name: 'Paint Roller Set', store: 'homedepot', price: 9.97, unit: 'set', category: 'paint roller brush' },
+      { name: 'Deck Screws 5lb (#10x3")', store: 'homedepot', price: 19.97, unit: 'box', category: 'hardware screws deck fasteners' },
+      { name: 'Framing Nails 3" 5lb', store: 'lowes', price: 14.98, unit: 'box', category: 'hardware nails framing fasteners' },
+      { name: 'Joist Hanger 2x10 (10pk)', store: 'homedepot', price: 11.97, unit: 'pack', category: 'hardware joist hanger framing' },
+      { name: 'Lag Bolts 3/8"x3" (50pk)', store: 'lowes', price: 12.48, unit: 'pack', category: 'hardware bolts lag fasteners' },
+      { name: 'Post Base 4x4', store: 'homedepot', price: 8.97, unit: 'each', category: 'hardware post base deck' },
+      { name: 'Fiberglass Batt R-13 16" (40 sq ft)', store: 'homedepot', price: 19.97, unit: 'bag', category: 'insulation batt fiberglass' },
+      { name: 'Fiberglass Batt R-19 24" (40 sq ft)', store: 'lowes', price: 24.97, unit: 'bag', category: 'insulation batt fiberglass' },
+      { name: 'Rigid Foam 2" 4x8', store: 'homedepot', price: 26.97, unit: 'sheet', category: 'insulation foam rigid' },
+      { name: 'Interior Door 32x80 (pre-hung)', store: 'homedepot', price: 149.00, unit: 'each', category: 'door interior' },
+      { name: 'Exterior Door 36x80 (pre-hung)', store: 'homedepot', price: 279.00, unit: 'each', category: 'door exterior' },
+      { name: 'Window 36x48 (double hung)', store: 'lowes', price: 249.00, unit: 'each', category: 'window' },
     ];
 
     function MaterialSearch({ onAddMaterial }) {
       const [query, setQuery] = useState('');
-      const [zip, setZip] = useState('08822'); // Default Flemington NJ
+      const [zip, setZip] = useState('08822');
       const [results, setResults] = useState([]);
       const [searching, setSearching] = useState(false);
       const [searched, setSearched] = useState(false);
 
       function searchMaterials() {
-        if (!query.trim()) return;
+        const q = (query || '').toLowerCase().trim();
+        if (!q) return;
         setSearching(true);
         setSearched(false);
-        // Filter from curated DB, weighted by relevance
-        const q = query.toLowerCase().trim();
         const words = q.split(/\s+/);
         const scored = COMMON_MATERIALS.map(item => {
           const name = item.name.toLowerCase();
-          const cat = item.category.toLowerCase();
+          const cat = (item.category || '').toLowerCase();
           let score = 0;
           words.forEach(w => {
             if (name.includes(w)) score += 2;
             if (cat.includes(w)) score += 1;
           });
-          return { ...item, score };
-        }).filter(item => item.score > 0).sort((a, b) => b.score - a.score).slice(0, 10);
-        setTimeout(() => {
-          setResults(scored);
-          setSearching(false);
-          setSearched(true);
-        }, 300); // Small delay to feel responsive
+          return { name: item.name, store: item.store, price: item.price, unit: item.unit, score };
+        }).filter(item => item.score > 0).sort((a, b) => b.score - a.score).slice(0, 12);
+        setResults(scored);
+        setSearching(false);
+        setSearched(true);
       }
 
       function handleKeyDown(ev) {
-        if (ev.key === 'Enter') searchMaterials();
+        if (ev.key === 'Enter') { ev.preventDefault(); searchMaterials(); }
       }
 
       return (
         <div className="materials-section">
           <div className="materials-header">
             <span>🏪 Material Price Lookup</span>
-            <span style={{fontSize:'11px',fontWeight:500,color:'var(--text-soft)'}}>Prices from Home Depot &amp; Lowe's — Flemington NJ area</span>
+            <span style={{fontSize:'11px',fontWeight:500,color:'var(--text-soft)'}}>Home Depot &amp; Lowe's — NJ area</span>
           </div>
           <div className="materials-search-row">
-            <input
-              type="text"
-              placeholder="Search: lumber, drywall, roofing, concrete..."
-              value={query}
-              onChange={ev => setQuery(ev.target.value)}
-              onKeyDown={handleKeyDown}
-            />
-            <input
-              type="text"
-              className="zip-input"
-              placeholder="ZIP"
-              value={zip}
-              onChange={ev => setZip(ev.target.value)}
-              maxLength={5}
-            />
-            <button className="btn-search-mat" onClick={searchMaterials} disabled={searching || !query.trim()}>
-              {searching ? 'Searching...' : 'Search'}
-            </button>
+            <input type="text" placeholder="Search: lumber, drywall, roofing, concrete..." value={query} onChange={ev => setQuery(ev.target.value)} onKeyDown={handleKeyDown} />
+            <input type="text" className="zip-input" placeholder="ZIP" value={zip} onChange={ev => setZip(ev.target.value)} maxLength={5} />
+            <button type="button" className="btn-search-mat" onClick={searchMaterials} disabled={searching || !query.trim()}>{searching ? '...' : 'Search'}</button>
           </div>
           {searched && results.length === 0 && (
             <div style={{padding:'16px',fontSize:'13px',color:'var(--text-soft)',textAlign:'center'}}>
-              No results found. Try: lumber, plywood, drywall, shingles, concrete, flooring, paint, screws, insulation
+              No results. Try: lumber, plywood, drywall, shingles, concrete, flooring, paint, screws, insulation, door, window
             </div>
           )}
           {results.length > 0 && (
@@ -711,22 +697,21 @@
                   <span className={`mat-store ${item.store}`}>{item.store === 'homedepot' ? 'Home Depot' : "Lowe's"}</span>
                   <span className="mat-price">${item.price.toFixed(2)}</span>
                   <span style={{fontSize:'11px',color:'var(--text-soft)',marginRight:'4px'}}>/{item.unit}</span>
-                  <button className="btn-add-mat" onClick={() => onAddMaterial(item)}>+ Add</button>
+                  <button type="button" className="btn-add-mat" onClick={() => onAddMaterial(item)}>+ Add</button>
                 </div>
               ))}
             </div>
           )}
           <div className="mat-info-note">
-            💡 Prices are approximate retail reference prices for Hunterdon County NJ area. Always verify current prices at HomeDepot.com or Lowes.com before finalizing estimates.
+            💡 Approximate retail reference prices for the Hunterdon County NJ area. Verify current prices at HomeDepot.com or Lowes.com before finalizing.
           </div>
         </div>
       );
     }
 
     function MaterialsList({ materials, onUpdate, onRemove }) {
-      if (materials.length === 0) return null;
+      if (!materials || materials.length === 0) return null;
       const total = materials.reduce((sum, m) => sum + (m.price * (m.qty || 1)), 0);
-
       return (
         <div className="mat-added-list">
           <div className="mat-added-title">Added Materials</div>
@@ -734,16 +719,10 @@
             <div key={idx} className="mat-added-item">
               <span className="mat-added-name">{item.name}</span>
               <span style={{fontSize:'11px',color:'var(--text-soft)'}}>@ ${item.price.toFixed(2)}</span>
-              <input
-                type="number"
-                className="mat-qty-input"
-                value={item.qty || 1}
-                min={1}
-                onChange={ev => onUpdate(idx, parseInt(ev.target.value) || 1)}
-              />
+              <input type="number" className="mat-qty-input" value={item.qty || 1} min={1} onChange={ev => onUpdate(idx, parseInt(ev.target.value, 10) || 1)} />
               <span style={{fontSize:'11px',color:'var(--text-soft)'}}>{item.unit}</span>
               <span className="mat-added-price">${(item.price * (item.qty || 1)).toFixed(2)}</span>
-              <button className="btn-remove-mat" onClick={() => onRemove(idx)} title="Remove">×</button>
+              <button type="button" className="btn-remove-mat" onClick={() => onRemove(idx)} title="Remove">×</button>
             </div>
           ))}
           <div className="mat-total-row">
@@ -756,14 +735,16 @@
 
     // ── ESTIMATES ──────────────────────────────────────────
     const STATUSES = ['draft','sent','approved','declined','completed'];
-    const EMPTY_E = {
-      customer_name: '',
-      title: '',
-      description: '',
-      amount: '',
-      status: 'draft',
-      estimate_date: new Date().toISOString().split('T')[0]
-    };
+    function freshEstimateForm() {
+      return {
+        customer_name: '',
+        title: '',
+        description: '',
+        amount: '',
+        status: 'draft',
+        estimate_date: new Date().toISOString().split('T')[0]
+      };
+    }
 
     function Estimates() {
       const [list, setList] = useState([]);
@@ -773,7 +754,7 @@
       const [filterStatus, setFilterStatus] = useState('all');
       const [showModal, setShowModal] = useState(false);
       const [editingEst, setEditingEst] = useState(null);
-      const [form, setForm] = useState(EMPTY_E);
+      const [form, setForm] = useState(freshEstimateForm());
       const [saving, setSaving] = useState(false);
       const [formError, setFormError] = useState('');
       const [materials, setMaterials] = useState([]);
@@ -782,18 +763,20 @@
 
       async function loadAll() {
         setLoading(true);
-        const [eRes, cRes] = await Promise.all([
-          db.from('estimates').select('*').order('created_at', { ascending: false }),
-          db.from('customers').select('id,name').order('name'),
-        ]);
-        setList(eRes.data || []);
-        setCustomers(cRes.data || []);
+        try {
+          const [eRes, cRes] = await Promise.all([
+            db.from('estimates').select('*').order('created_at', { ascending: false }),
+            db.from('customers').select('id,name').order('name'),
+          ]);
+          setList(eRes.data || []);
+          setCustomers(cRes.data || []);
+        } catch (err) { console.error(err); }
         setLoading(false);
       }
 
       function openAdd() {
         setEditingEst(null);
-        setForm(EMPTY_E);
+        setForm(freshEstimateForm());  // always blank customer + fields
         setMaterials([]);
         setFormError('');
         setShowModal(true);
@@ -817,24 +800,25 @@
       function closeModal() {
         setShowModal(false);
         setEditingEst(null);
-        setForm(EMPTY_E);
+        setForm(freshEstimateForm());
         setMaterials([]);
         setFormError('');
       }
 
       function handleFormChange(ev) {
-        setForm(f => ({ ...f, [ev.target.name]: ev.target.value }));
+        const { name, value } = ev.target;
+        setForm(f => ({ ...f, [name]: value }));
       }
 
       function addMaterial(item) {
         setMaterials(prev => {
-          const exists = prev.findIndex(m => m.name === item.name && m.store === item.store);
-          if (exists >= 0) {
-            const updated = [...prev];
-            updated[exists] = { ...updated[exists], qty: (updated[exists].qty || 1) + 1 };
+          const idx = prev.findIndex(m => m.name === item.name && m.store === item.store);
+          if (idx >= 0) {
+            const updated = prev.slice();
+            updated[idx] = { ...updated[idx], qty: (updated[idx].qty || 1) + 1 };
             return updated;
           }
-          return [...prev, { ...item, qty: 1 }];
+          return [...prev, { name: item.name, store: item.store, price: item.price, unit: item.unit, qty: 1 }];
         });
       }
 
@@ -846,28 +830,21 @@
         setMaterials(prev => prev.filter((_, i) => i !== idx));
       }
 
-      // Auto-update amount when materials change (if amount is empty or was auto-set)
-      useEffect(() => {
-        if (materials.length > 0) {
-          const matTotal = materials.reduce((sum, m) => sum + (m.price * (m.qty || 1)), 0);
-          // Only auto-fill if amount is empty
-          if (!form.amount) {
-            setForm(f => ({ ...f, amount: matTotal.toFixed(2) }));
-          }
-        }
-      }, [materials]);
+      function fillAmountFromMaterials() {
+        const matTotal = materials.reduce((sum, m) => sum + (m.price * (m.qty || 1)), 0);
+        setForm(f => ({ ...f, amount: matTotal.toFixed(2) }));
+      }
 
       async function saveEstimate() {
         if (!form.title.trim()) { setFormError('Title is required.'); return; }
         setSaving(true); setFormError('');
 
-        // Build description that includes materials if any
-        let finalDescription = form.description;
+        let finalDescription = form.description || '';
         if (materials.length > 0) {
           const matLines = materials.map(m => `• ${m.name} x${m.qty || 1} @ $${m.price.toFixed(2)}/${m.unit} = $${(m.price * (m.qty||1)).toFixed(2)}`).join('\n');
           const matTotal = materials.reduce((sum, m) => sum + (m.price * (m.qty || 1)), 0);
-          const matBlock = `\nMATERIALS BREAKDOWN:\n${matLines}\nMaterials Subtotal: $${matTotal.toFixed(2)}`;
-          finalDescription = form.description ? `${form.description}${matBlock}` : matBlock.trim();
+          const matBlock = `MATERIALS BREAKDOWN:\n${matLines}\nMaterials Subtotal: $${matTotal.toFixed(2)}`;
+          finalDescription = finalDescription ? `${finalDescription}\n\n${matBlock}` : matBlock;
         }
 
         const payload = {
@@ -879,11 +856,14 @@
           estimate_date: form.estimate_date || null
         };
 
-        const op = editingEst
-          ? db.from('estimates').update(payload).eq('id', editingEst.id)
-          : db.from('estimates').insert(payload);
-        const { error: dbErr } = await op;
-        if (dbErr) { setFormError(dbErr.message); setSaving(false); return; }
+        try {
+          const op = editingEst
+            ? db.from('estimates').update(payload).eq('id', editingEst.id)
+            : db.from('estimates').insert(payload);
+          const { error: dbErr } = await op;
+          if (dbErr) { setFormError(dbErr.message); setSaving(false); return; }
+        } catch (err) { setFormError(String(err)); setSaving(false); return; }
+
         setSaving(false);
         closeModal();
         loadAll();
@@ -978,17 +958,18 @@
                     <textarea name="description" value={form.description} onChange={handleFormChange} placeholder="Describe the work, scope, special notes..." />
                   </div>
 
-                  {/* MATERIAL LOOKUP */}
                   <MaterialSearch onAddMaterial={addMaterial} />
                   <MaterialsList materials={materials} onUpdate={updateMaterialQty} onRemove={removeMaterial} />
 
                   <div className="form-row" style={{marginTop:'16px'}}>
                     <div className="form-group">
-                      <label>
-                        Total Amount ($)
-                        {materials.length > 0 && <span style={{fontWeight:400,color:'var(--text-soft)',fontSize:'11px',marginLeft:'6px'}}>Materials: ${matSubtotal.toFixed(2)}</span>}
-                      </label>
+                      <label>Total Amount ($)</label>
                       <input name="amount" type="number" min="0" step="0.01" value={form.amount} onChange={handleFormChange} placeholder="0.00" />
+                      {materials.length > 0 && (
+                        <button type="button" className="btn-link" style={{fontSize:'12px',marginTop:'6px'}} onClick={fillAmountFromMaterials}>
+                          ↻ Use materials total (${matSubtotal.toFixed(2)})
+                        </button>
+                      )}
                     </div>
                     <div className="form-group">
                       <label>Date</label>
@@ -1037,21 +1018,25 @@
 
       if (loading) return <div className="loading"><div className="spinner"></div>Loading...</div>;
       if (!session) return <Login />;
-      if (isRecovery) return <ResetPassword onDone={() => { setIsRecovery(false); }} />;
+      if (isRecovery) return <ResetPassword onDone={() => setIsRecovery(false)} />;
 
       return (
         <>
           <NavBar activeTab={activeTab} setActiveTab={setActiveTab} userEmail={session.user.email} />
           <main className="main-content">
-            {activeTab === 'dashboard' && <Dashboard setActiveTab={setActiveTab} />}
-            {activeTab === 'customers' && <Customers />}
-            {activeTab === 'estimates' && <Estimates />}
+            <ErrorBoundary>
+              {activeTab === 'dashboard' && <Dashboard setActiveTab={setActiveTab} />}
+              {activeTab === 'customers' && <Customers />}
+              {activeTab === 'estimates' && <Estimates />}
+            </ErrorBoundary>
           </main>
         </>
       );
     }
 
-    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+    ReactDOM.createRoot(document.getElementById('root')).render(
+      <ErrorBoundary><App /></ErrorBoundary>
+    );
   </script>
 </body>
 </html>
