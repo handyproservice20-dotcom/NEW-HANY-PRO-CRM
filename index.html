@@ -120,46 +120,12 @@
 
     .table-footer { padding: 12px 16px; border-top: 1px solid var(--border); font-size: 13px; color: var(--text-soft); display: flex; justify-content: space-between; }
 
-    .materials-section { margin-top: 16px; border: 1.5px solid var(--border); border-radius: var(--radius); overflow: hidden; }
-    .materials-header { background: var(--gray-light); padding: 10px 14px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-soft); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 6px; }
-    .materials-search-row { padding: 10px 14px; border-bottom: 1px solid var(--border); display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
-    .materials-search-row input { flex: 1; min-width: 150px; padding: 8px 12px; border: 1.5px solid var(--border); border-radius: var(--radius); font-size: 14px; }
-    .materials-search-row input:focus { outline: none; border-color: var(--blue); }
-    .zip-input { width: 80px !important; flex: none !important; }
-    .btn-search-mat { background: var(--blue); color: white; border: none; padding: 8px 16px; border-radius: var(--radius); font-size: 14px; font-weight: 600; white-space: nowrap; }
-    .btn-search-mat:hover { background: var(--blue-dark); }
-    .btn-search-mat:disabled { opacity: 0.6; cursor: default; }
-    .mat-result-item { display: flex; align-items: center; gap: 10px; padding: 9px 14px; border-bottom: 1px solid var(--border); font-size: 13px; flex-wrap: wrap; }
-    .mat-result-item:last-child { border-bottom: none; }
-    .mat-result-item:hover { background: var(--blue-light); }
-    .mat-name { flex: 1; font-weight: 500; min-width: 110px; }
-    .mat-store { font-size: 11px; font-weight: 700; padding: 2px 7px; border-radius: 10px; white-space: nowrap; }
-    .mat-store.homedepot { background: #fff0e6; color: #f96302; }
-    .mat-store.lowes { background: #e6f0ff; color: #004990; }
-    .mat-price { font-weight: 700; color: var(--green); white-space: nowrap; min-width: 58px; text-align: right; }
-    .btn-add-mat { background: var(--green-light); color: var(--green); border: 1px solid #86efac; padding: 4px 10px; border-radius: 5px; font-size: 12px; font-weight: 600; white-space: nowrap; }
-    .btn-add-mat:hover { background: #dcfce7; }
-    .mat-added-list { padding: 10px 14px; border-top: 1px solid var(--border); background: #fafafa; }
-    .mat-added-title { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-soft); margin-bottom: 8px; }
-    .mat-added-item { display: flex; align-items: center; gap: 8px; padding: 6px 0; border-bottom: 1px solid var(--border); font-size: 13px; flex-wrap: wrap; }
-    .mat-added-item:last-child { border-bottom: none; }
-    .mat-added-name { flex: 1; min-width: 90px; }
-    .mat-qty-input { width: 52px; padding: 4px 6px; border: 1.5px solid var(--border); border-radius: 5px; font-size: 13px; text-align: center; }
-    .mat-added-price { font-weight: 600; color: var(--green); min-width: 62px; text-align: right; }
-    .btn-remove-mat { background: none; border: none; color: var(--red); font-size: 18px; line-height: 1; padding: 0 4px; cursor: pointer; }
-    .mat-total-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0 2px; font-weight: 700; font-size: 14px; }
-    .mat-info-note { font-size: 11px; color: var(--text-soft); padding: 8px 14px; border-top: 1px solid var(--border); background: #fafafa; }
-    .btn-link-sm { background: none; border: none; color: var(--blue); cursor: pointer; font-size: 12px; padding: 0; margin-top: 6px; }
-
     @media (max-width: 600px) {
       .navbar { padding: 0 12px; }
       .nav-tab { padding: 16px 10px; font-size: 13px; }
       .nav-user { display: none; }
       .main-content { padding: 16px 12px; }
       .form-row { grid-template-columns: 1fr; }
-      .materials-search-row { flex-direction: column; }
-      .materials-search-row input { width: 100%; }
-      .zip-input { width: 100% !important; }
     }
   </style>
 </head>
@@ -175,55 +141,19 @@
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFyeWh2Zmloc3VwcHBycXhuc3pmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA3ODM2NjgsImV4cCI6MjA5NjM1OTY2OH0.Zj5I5oFhZ8qQqfPmnWklMkEhny_f73Uq2wBkGAE-Mqw'
     );
 
-    // ── ERROR BOUNDARY (prevents white screen) ─────────────
-    class ErrorBoundary extends React.Component {
-      constructor(props) { super(props); this.state = { hasError: false, msg: '' }; }
-      static getDerivedStateFromError(error) { return { hasError: true, msg: error && error.message ? error.message : String(error) }; }
-      componentDidCatch(error, info) { console.error('Caught by ErrorBoundary:', error, info); }
-      render() {
-        if (this.state.hasError) {
-          return (
-            <div style={{padding:'40px 20px',maxWidth:'460px',margin:'40px auto',textAlign:'center'}}>
-              <div style={{fontSize:'36px',marginBottom:'10px'}}>⚠️</div>
-              <h2 style={{fontSize:'18px',marginBottom:'8px'}}>Something hiccuped</h2>
-              <p style={{color:'var(--text-soft)',fontSize:'14px',marginBottom:'8px'}}>The app caught an error instead of going blank.</p>
-              <p style={{color:'var(--text-soft)',fontSize:'12px',marginBottom:'18px',fontFamily:'monospace',background:'#f3f4f6',padding:'8px',borderRadius:'6px',wordBreak:'break-word'}}>{this.state.msg}</p>
-              <button className="btn-primary" style={{maxWidth:'200px',margin:'0 auto'}} onClick={() => this.setState({ hasError: false, msg: '' })}>Back to App</button>
-            </div>
-          );
-        }
-        return this.props.children;
-      }
-    }
-
     // ── LOGIN ──────────────────────────────────────────────
     function Login() {
-      const [mode, setMode] = useState('login'); // 'login' | 'forgot' | 'sent' | 'signup'
+      const [mode, setMode] = useState('login'); // 'login' | 'forgot' | 'sent'
       const [email, setEmail] = useState('');
       const [password, setPassword] = useState('');
-      const [confirmPw, setConfirmPw] = useState('');
-      const [fullName, setFullName] = useState('');
       const [loading, setLoading] = useState(false);
       const [error, setError] = useState('');
-      const [info, setInfo] = useState('');
 
       async function handleLogin(e) {
         e.preventDefault();
         setLoading(true); setError('');
         const { error } = await db.auth.signInWithPassword({ email, password });
         if (error) { setError(error.message); setLoading(false); }
-      }
-
-      async function handleSignUp(e) {
-        e.preventDefault();
-        if (password !== confirmPw) { setError("Passwords don't match."); return; }
-        if (password.length < 6) { setError("Password must be at least 6 characters."); return; }
-        setLoading(true); setError(''); setInfo('');
-        const { error } = await db.auth.signUp({ email, password, options: { data: { full_name: fullName } } });
-        if (error) { setError(error.message); setLoading(false); return; }
-        setLoading(false);
-        setInfo('Account created! Check your email to confirm, or sign in if confirmation is off.');
-        setMode('login');
       }
 
       async function handleForgot(e) {
@@ -273,41 +203,6 @@
         </div>
       );
 
-      if (mode === 'signup') return (
-        <div className="login-page">
-          <div className="login-card">
-            <div className="login-logo">🔧</div>
-            <h1 className="login-title">Create Account</h1>
-            <p className="login-subtitle">Set up your Handy Pro CRM login</p>
-            {error && <div className="error-msg">{error}</div>}
-            <form onSubmit={handleSignUp}>
-              <div className="form-group">
-                <label>Full Name</label>
-                <input type="text" value={fullName} onChange={e => setFullName(e.target.value)} placeholder="Your name" autoFocus />
-              </div>
-              <div className="form-group">
-                <label>Email Address</label>
-                <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="you@example.com" required />
-              </div>
-              <div className="form-group">
-                <label>Password</label>
-                <input type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Min 6 characters" required minLength={6} />
-              </div>
-              <div className="form-group">
-                <label>Confirm Password</label>
-                <input type="password" value={confirmPw} onChange={e => setConfirmPw(e.target.value)} placeholder="••••••••" required />
-              </div>
-              <button type="submit" className="btn-primary" disabled={loading}>
-                {loading ? 'Creating...' : 'Create Account'}
-              </button>
-            </form>
-            <p style={{textAlign:'center',marginTop:'16px'}}>
-              <button onClick={() => { setMode('login'); setError(''); }} style={{background:'none',border:'none',color:'var(--blue)',cursor:'pointer',fontSize:'14px'}}>← Back to Sign In</button>
-            </p>
-          </div>
-        </div>
-      );
-
       return (
         <div className="login-page">
           <div className="login-card">
@@ -315,7 +210,6 @@
             <h1 className="login-title">Handy Pro CRM</h1>
             <p className="login-subtitle">Sign in to access your account</p>
             {error && <div className="error-msg">{error}</div>}
-            {info && <div style={{background:'var(--green-light)',border:'1px solid #86efac',color:'var(--green)',padding:'10px 14px',borderRadius:'var(--radius)',fontSize:'13px',marginBottom:'16px'}}>{info}</div>}
             <form onSubmit={handleLogin}>
               <div className="form-group">
                 <label>Email Address</label>
@@ -333,7 +227,7 @@
               <button onClick={() => { setMode('forgot'); setError(''); }} style={{background:'none',border:'none',color:'var(--blue)',cursor:'pointer',fontSize:'14px'}}>Forgot password?</button>
             </p>
             <p style={{textAlign:'center',marginTop:'8px',fontSize:'13px',color:'#6b7280'}}>
-              Don't have an account? <button onClick={() => { setMode('signup'); setError(''); setInfo(''); }} style={{background:'none',border:'none',color:'var(--blue)',cursor:'pointer',fontSize:'13px',fontWeight:600}}>Create one</button>
+              Contact your administrator to get an account.
             </p>
           </div>
         </div>
@@ -587,138 +481,6 @@
       );
     }
 
-    // ── MATERIAL PRICE LOOKUP ──────────────────────────────
-    const COMMON_MATERIALS = [
-      { name: '2x4x8 Lumber (Pine)', store: 'homedepot', price: 4.48, unit: 'each', category: 'lumber wood stud' },
-      { name: '2x4x10 Lumber (Pine)', store: 'homedepot', price: 5.98, unit: 'each', category: 'lumber wood stud' },
-      { name: '2x6x8 Lumber (Pine)', store: 'homedepot', price: 7.28, unit: 'each', category: 'lumber wood' },
-      { name: '2x6x10 Lumber (Pine)', store: 'homedepot', price: 9.48, unit: 'each', category: 'lumber wood' },
-      { name: '4x4x8 Post (Pressure Treated)', store: 'homedepot', price: 10.97, unit: 'each', category: 'lumber wood post' },
-      { name: '2x4x8 Pressure Treated Lumber', store: 'lowes', price: 5.28, unit: 'each', category: 'lumber wood stud deck' },
-      { name: '2x6x8 Pressure Treated Lumber', store: 'lowes', price: 7.98, unit: 'each', category: 'lumber wood deck' },
-      { name: '4x4x8 Pressure Treated Post', store: 'lowes', price: 11.48, unit: 'each', category: 'lumber wood post deck' },
-      { name: '5/4x6x12 Decking (Pressure Treated)', store: 'homedepot', price: 14.97, unit: 'each', category: 'lumber deck decking' },
-      { name: '5/4x6x16 Decking (Pressure Treated)', store: 'homedepot', price: 19.97, unit: 'each', category: 'lumber deck decking' },
-      { name: '5/4x6x12 Composite Decking (Brown)', store: 'lowes', price: 22.48, unit: 'each', category: 'deck decking composite' },
-      { name: 'Plywood 3/4" 4x8 (CDX)', store: 'homedepot', price: 42.97, unit: 'sheet', category: 'plywood wood sheet' },
-      { name: 'Plywood 1/2" 4x8 (CDX)', store: 'homedepot', price: 34.97, unit: 'sheet', category: 'plywood wood sheet' },
-      { name: 'OSB 7/16" 4x8', store: 'lowes', price: 19.98, unit: 'sheet', category: 'osb plywood sheet wood' },
-      { name: 'Drywall 1/2" 4x8 Sheet', store: 'homedepot', price: 13.48, unit: 'sheet', category: 'drywall sheetrock gypsum wall' },
-      { name: 'Drywall 5/8" 4x8 Sheet (Fire)', store: 'homedepot', price: 15.98, unit: 'sheet', category: 'drywall sheetrock gypsum wall fire' },
-      { name: 'Drywall 1/2" 4x12 Sheet', store: 'lowes', price: 19.97, unit: 'sheet', category: 'drywall sheetrock gypsum wall' },
-      { name: 'Joint Compound 5 Gal', store: 'homedepot', price: 17.97, unit: 'bucket', category: 'drywall mud compound' },
-      { name: 'Drywall Tape 250ft', store: 'lowes', price: 4.48, unit: 'roll', category: 'drywall tape' },
-      { name: 'Architectural Shingles (Bundle)', store: 'homedepot', price: 36.97, unit: 'bundle', category: 'roofing roof shingles' },
-      { name: 'Roofing Felt 15lb 4sq', store: 'homedepot', price: 21.97, unit: 'roll', category: 'roofing roof felt underlayment' },
-      { name: 'Roofing Nails 5lb', store: 'lowes', price: 12.48, unit: 'box', category: 'roofing roof nails' },
-      { name: 'Ridge Cap Shingles (Bundle)', store: 'lowes', price: 42.98, unit: 'bundle', category: 'roofing roof ridge shingles' },
-      { name: 'Ice & Water Shield 2sq', store: 'homedepot', price: 49.97, unit: 'roll', category: 'roofing roof ice water shield' },
-      { name: 'Concrete Mix 60lb (Quikrete)', store: 'homedepot', price: 5.97, unit: 'bag', category: 'concrete cement quikrete' },
-      { name: 'Concrete Mix 80lb (Quikrete)', store: 'homedepot', price: 7.48, unit: 'bag', category: 'concrete cement quikrete' },
-      { name: 'Concrete Mix 60lb', store: 'lowes', price: 6.28, unit: 'bag', category: 'concrete cement' },
-      { name: 'Rebar 1/2" x 20ft', store: 'homedepot', price: 11.97, unit: 'each', category: 'concrete rebar steel' },
-      { name: 'Wire Mesh 4x8 Panel', store: 'homedepot', price: 9.47, unit: 'panel', category: 'concrete wire mesh' },
-      { name: 'Vinyl Plank Flooring (sq ft)', store: 'homedepot', price: 1.79, unit: 'sq ft', category: 'flooring floor vinyl plank lvp' },
-      { name: 'Laminate Flooring (sq ft)', store: 'lowes', price: 1.49, unit: 'sq ft', category: 'flooring floor laminate' },
-      { name: 'Ceramic Tile 12x12 (sq ft)', store: 'homedepot', price: 2.18, unit: 'sq ft', category: 'flooring floor tile ceramic' },
-      { name: 'Hardwood Flooring 3/4" (sq ft)', store: 'lowes', price: 4.99, unit: 'sq ft', category: 'flooring floor hardwood wood' },
-      { name: 'Floor Underlayment 100sq ft', store: 'homedepot', price: 22.97, unit: 'roll', category: 'flooring floor underlayment' },
-      { name: 'Interior Paint 1gal (White)', store: 'homedepot', price: 29.98, unit: 'gallon', category: 'paint interior' },
-      { name: 'Exterior Paint 1gal', store: 'lowes', price: 34.98, unit: 'gallon', category: 'paint exterior' },
-      { name: 'Primer 1gal', store: 'homedepot', price: 24.97, unit: 'gallon', category: 'paint primer' },
-      { name: 'Paint Roller Set', store: 'homedepot', price: 9.97, unit: 'set', category: 'paint roller brush' },
-      { name: 'Deck Screws 5lb (#10x3")', store: 'homedepot', price: 19.97, unit: 'box', category: 'hardware screws deck fasteners' },
-      { name: 'Framing Nails 3" 5lb', store: 'lowes', price: 14.98, unit: 'box', category: 'hardware nails framing fasteners' },
-      { name: 'Joist Hanger 2x10 (10pk)', store: 'homedepot', price: 11.97, unit: 'pack', category: 'hardware joist hanger framing' },
-      { name: 'Lag Bolts 3/8"x3" (50pk)', store: 'lowes', price: 12.48, unit: 'pack', category: 'hardware bolts lag fasteners' },
-      { name: 'Post Base 4x4', store: 'homedepot', price: 8.97, unit: 'each', category: 'hardware post base deck' },
-      { name: 'Fiberglass Batt R-13 16" (40 sq ft)', store: 'homedepot', price: 19.97, unit: 'bag', category: 'insulation batt fiberglass' },
-      { name: 'Fiberglass Batt R-19 24" (40 sq ft)', store: 'lowes', price: 24.97, unit: 'bag', category: 'insulation batt fiberglass' },
-      { name: 'Rigid Foam 2" 4x8', store: 'homedepot', price: 26.97, unit: 'sheet', category: 'insulation foam rigid' },
-      { name: 'Interior Door 32x80 (pre-hung)', store: 'homedepot', price: 149.00, unit: 'each', category: 'door interior' },
-      { name: 'Exterior Door 36x80 (pre-hung)', store: 'homedepot', price: 279.00, unit: 'each', category: 'door exterior' },
-      { name: 'Window 36x48 (double hung)', store: 'lowes', price: 249.00, unit: 'each', category: 'window' },
-    ];
-
-    function MaterialSearch({ onAddMaterial }) {
-      const [query, setQuery] = useState('');
-      const [zip, setZip] = useState('08822');
-      const [results, setResults] = useState([]);
-      const [searched, setSearched] = useState(false);
-
-      function searchMaterials() {
-        const q = (query || '').toLowerCase().trim();
-        if (!q) return;
-        const words = q.split(/\s+/);
-        const scored = COMMON_MATERIALS.map(item => {
-          const name = item.name.toLowerCase();
-          const cat = (item.category || '').toLowerCase();
-          let score = 0;
-          words.forEach(w => { if (name.includes(w)) score += 2; if (cat.includes(w)) score += 1; });
-          return { name: item.name, store: item.store, price: item.price, unit: item.unit, score };
-        }).filter(item => item.score > 0).sort((a, b) => b.score - a.score).slice(0, 12);
-        setResults(scored);
-        setSearched(true);
-      }
-
-      function handleKeyDown(ev) { if (ev.key === 'Enter') { ev.preventDefault(); searchMaterials(); } }
-
-      return (
-        <div className="materials-section">
-          <div className="materials-header">
-            <span>🏪 Material Price Lookup</span>
-            <span style={{fontSize:'11px',fontWeight:500,color:'var(--text-soft)'}}>Home Depot &amp; Lowe's — NJ area</span>
-          </div>
-          <div className="materials-search-row">
-            <input type="text" placeholder="Search: lumber, drywall, roofing, concrete..." value={query} onChange={ev => setQuery(ev.target.value)} onKeyDown={handleKeyDown} />
-            <input type="text" className="zip-input" placeholder="ZIP" value={zip} onChange={ev => setZip(ev.target.value)} maxLength={5} />
-            <button type="button" className="btn-search-mat" onClick={searchMaterials} disabled={!query.trim()}>Search</button>
-          </div>
-          {searched && results.length === 0 && (
-            <div style={{padding:'14px',fontSize:'13px',color:'var(--text-soft)',textAlign:'center'}}>
-              No results. Try: lumber, plywood, drywall, shingles, concrete, flooring, paint, screws, insulation, door, window
-            </div>
-          )}
-          {results.length > 0 && results.map((item, idx) => (
-            <div key={idx} className="mat-result-item">
-              <span className="mat-name">{item.name}</span>
-              <span className={`mat-store ${item.store}`}>{item.store === 'homedepot' ? 'Home Depot' : "Lowe's"}</span>
-              <span className="mat-price">${item.price.toFixed(2)}</span>
-              <span style={{fontSize:'11px',color:'var(--text-soft)',marginRight:'4px'}}>/{item.unit}</span>
-              <button type="button" className="btn-add-mat" onClick={() => onAddMaterial(item)}>+ Add</button>
-            </div>
-          ))}
-          <div className="mat-info-note">
-            💡 Approximate retail reference prices for the Hunterdon County NJ area. Verify current prices at HomeDepot.com or Lowes.com before finalizing.
-          </div>
-        </div>
-      );
-    }
-
-    function MaterialsList({ materials, onUpdate, onRemove }) {
-      if (!materials || materials.length === 0) return null;
-      const total = materials.reduce((sum, m) => sum + (m.price * (m.qty || 1)), 0);
-      return (
-        <div className="mat-added-list">
-          <div className="mat-added-title">Added Materials</div>
-          {materials.map((item, idx) => (
-            <div key={idx} className="mat-added-item">
-              <span className="mat-added-name">{item.name}</span>
-              <span style={{fontSize:'11px',color:'var(--text-soft)'}}>@ ${item.price.toFixed(2)}</span>
-              <input type="number" className="mat-qty-input" value={item.qty || 1} min={1} onChange={ev => onUpdate(idx, parseInt(ev.target.value, 10) || 1)} />
-              <span style={{fontSize:'11px',color:'var(--text-soft)'}}>{item.unit}</span>
-              <span className="mat-added-price">${(item.price * (item.qty || 1)).toFixed(2)}</span>
-              <button type="button" className="btn-remove-mat" onClick={() => onRemove(idx)} title="Remove">×</button>
-            </div>
-          ))}
-          <div className="mat-total-row">
-            <span>Materials Subtotal</span>
-            <span style={{color:'var(--green)'}}>${total.toFixed(2)}</span>
-          </div>
-        </div>
-      );
-    }
-
     // ── ESTIMATES ──────────────────────────────────────────
     const STATUSES = ['draft','sent','approved','declined','completed'];
     const EMPTY_E = { customer_name: '', title: '', description: '', amount: '', status: 'draft', estimate_date: new Date().toISOString().split('T')[0] };
@@ -734,7 +496,6 @@
       const [form, setForm] = useState(EMPTY_E);
       const [saving, setSaving] = useState(false);
       const [error, setError] = useState('');
-      const [materials, setMaterials] = useState([]);
 
       useEffect(() => { load(); }, []);
 
@@ -749,36 +510,15 @@
         setLoading(false);
       }
 
-      function openAdd() { setEditing(null); setForm(EMPTY_E); setMaterials([]); setError(''); setShow(true); }
-      function openEdit(e) { setEditing(e); setForm({ customer_name: e.customer_name||'', title: e.title||'', description: e.description||'', amount: e.amount != null ? String(e.amount) : '', status: e.status||'draft', estimate_date: e.estimate_date||new Date().toISOString().split('T')[0] }); setMaterials([]); setError(''); setShow(true); }
-      function close() { setShow(false); setEditing(null); setForm(EMPTY_E); setMaterials([]); setError(''); }
+      function openAdd() { setEditing(null); setForm(EMPTY_E); setError(''); setShow(true); }
+      function openEdit(e) { setEditing(e); setForm({ customer_name: e.customer_name||'', title: e.title||'', description: e.description||'', amount: e.amount != null ? String(e.amount) : '', status: e.status||'draft', estimate_date: e.estimate_date||new Date().toISOString().split('T')[0] }); setError(''); setShow(true); }
+      function close() { setShow(false); setEditing(null); setForm(EMPTY_E); setError(''); }
       function change(e) { setForm(f => ({ ...f, [e.target.name]: e.target.value })); }
-
-      function addMaterial(item) {
-        setMaterials(prev => {
-          const idx = prev.findIndex(m => m.name === item.name && m.store === item.store);
-          if (idx >= 0) { const u = prev.slice(); u[idx] = { ...u[idx], qty: (u[idx].qty || 1) + 1 }; return u; }
-          return [...prev, { name: item.name, store: item.store, price: item.price, unit: item.unit, qty: 1 }];
-        });
-      }
-      function updateMaterialQty(idx, qty) { setMaterials(prev => prev.map((m, i) => i === idx ? { ...m, qty } : m)); }
-      function removeMaterial(idx) { setMaterials(prev => prev.filter((_, i) => i !== idx)); }
-      function fillAmountFromMaterials() {
-        const t = materials.reduce((s, m) => s + (m.price * (m.qty || 1)), 0);
-        setForm(f => ({ ...f, amount: t.toFixed(2) }));
-      }
 
       async function save() {
         if (!form.title.trim()) { setError('Title is required.'); return; }
         setSaving(true); setError('');
-        let desc = form.description || '';
-        if (materials.length > 0) {
-          const lines = materials.map(m => `• ${m.name} x${m.qty || 1} @ $${m.price.toFixed(2)}/${m.unit} = $${(m.price * (m.qty||1)).toFixed(2)}`).join('\n');
-          const t = materials.reduce((s, m) => s + (m.price * (m.qty || 1)), 0);
-          const block = `MATERIALS BREAKDOWN:\n${lines}\nMaterials Subtotal: $${t.toFixed(2)}`;
-          desc = desc ? `${desc}\n\n${block}` : block;
-        }
-        const payload = { customer_name: form.customer_name, title: form.title, description: desc, amount: form.amount !== '' ? parseFloat(form.amount) : null, status: form.status, estimate_date: form.estimate_date || null };
+        const payload = { customer_name: form.customer_name, title: form.title, description: form.description, amount: form.amount !== '' ? parseFloat(form.amount) : null, status: form.status, estimate_date: form.estimate_date || null };
         const op = editing ? db.from('estimates').update(payload).eq('id', editing.id) : db.from('estimates').insert(payload);
         const { error } = await op;
         if (error) { setError(error.message); setSaving(false); return; }
@@ -862,16 +602,8 @@
                   </div>
                   <div className="form-group"><label>Title *</label><input name="title" value={form.title} onChange={change} placeholder="e.g. Bathroom Remodel" /></div>
                   <div className="form-group"><label>Description</label><textarea name="description" value={form.description} onChange={change} placeholder="Scope of work, materials, details..." /></div>
-                  <MaterialSearch onAddMaterial={addMaterial} />
-                  <MaterialsList materials={materials} onUpdate={updateMaterialQty} onRemove={removeMaterial} />
-                  <div className="form-row" style={{marginTop:'16px'}}>
-                    <div className="form-group">
-                      <label>Amount ($)</label>
-                      <input name="amount" type="number" min="0" step="0.01" value={form.amount} onChange={change} placeholder="0.00" />
-                      {materials.length > 0 && (
-                        <button type="button" className="btn-link-sm" onClick={fillAmountFromMaterials}>↻ Use materials total (${materials.reduce((s,m)=>s+(m.price*(m.qty||1)),0).toFixed(2)})</button>
-                      )}
-                    </div>
+                  <div className="form-row">
+                    <div className="form-group"><label>Amount ($)</label><input name="amount" type="number" min="0" step="0.01" value={form.amount} onChange={change} placeholder="0.00" /></div>
                     <div className="form-group"><label>Date</label><input name="estimate_date" type="date" value={form.estimate_date} onChange={change} /></div>
                   </div>
                   <div className="form-group"><label>Status</label>
@@ -915,17 +647,15 @@
         <>
           <NavBar activeTab={activeTab} setActiveTab={setActiveTab} userEmail={session.user.email} />
           <main className="main-content">
-            <ErrorBoundary>
-              {activeTab === 'dashboard' && <Dashboard setActiveTab={setActiveTab} />}
-              {activeTab === 'customers' && <Customers />}
-              {activeTab === 'estimates' && <Estimates />}
-            </ErrorBoundary>
+            {activeTab === 'dashboard' && <Dashboard setActiveTab={setActiveTab} />}
+            {activeTab === 'customers' && <Customers />}
+            {activeTab === 'estimates' && <Estimates />}
           </main>
         </>
       );
     }
 
-    ReactDOM.createRoot(document.getElementById('root')).render(<ErrorBoundary><App /></ErrorBoundary>);
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
   </script>
 </body>
 </html>
