@@ -40,9 +40,6 @@
     .login-logo { text-align: center; font-size: 40px; margin-bottom: 8px; }
     .login-title { text-align: center; font-size: 22px; font-weight: 700; margin-bottom: 4px; }
     .login-subtitle { text-align: center; color: var(--text-soft); font-size: 14px; margin-bottom: 28px; }
-    .login-tab-row { display: flex; border: 1.5px solid var(--border); border-radius: var(--radius); overflow: hidden; margin-bottom: 24px; }
-    .login-tab { flex: 1; padding: 9px; background: white; border: none; font-size: 14px; font-weight: 500; color: var(--text-soft); transition: all 0.15s; }
-    .login-tab.active { background: var(--blue); color: white; }
 
     .form-group { margin-bottom: 16px; }
     .form-group label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; }
@@ -54,10 +51,8 @@
     .btn-primary { width: 100%; background: var(--blue); color: white; border: none; padding: 11px; border-radius: var(--radius); font-size: 15px; font-weight: 600; transition: background 0.15s; }
     .btn-primary:hover { background: var(--blue-dark); }
     .btn-primary:disabled { opacity: 0.6; cursor: default; }
-    .btn-link { background: none; border: none; color: var(--blue); cursor: pointer; font-size: 14px; padding: 0; }
 
     .error-msg { background: var(--red-light); border: 1px solid #fca5a5; color: var(--red); padding: 10px 14px; border-radius: var(--radius); font-size: 13px; margin-bottom: 16px; }
-    .success-msg { background: var(--green-light); border: 1px solid #86efac; color: var(--green); padding: 10px 14px; border-radius: var(--radius); font-size: 13px; margin-bottom: 16px; }
 
     .page-title { font-size: 22px; font-weight: 700; margin-bottom: 24px; }
     .page-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; }
@@ -101,13 +96,13 @@
     .badge-completed { background: #f0fdf4; color: #166534; }
 
     .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.45); display: flex; align-items: center; justify-content: center; z-index: 1000; padding: 20px; }
-    .modal { background: white; border-radius: 12px; width: 100%; max-width: 600px; max-height: 90vh; overflow-y: auto; box-shadow: 0 20px 50px rgba(0,0,0,0.25); }
-    .modal-header { padding: 20px 24px 16px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; background: white; z-index: 10; }
+    .modal { background: white; border-radius: 12px; width: 100%; max-width: 520px; max-height: 90vh; overflow-y: auto; box-shadow: 0 20px 50px rgba(0,0,0,0.25); }
+    .modal-header { padding: 20px 24px 16px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
     .modal-title { font-size: 17px; font-weight: 700; }
     .modal-close { background: none; border: none; font-size: 22px; color: var(--text-soft); line-height: 1; padding: 2px 6px; }
     .modal-close:hover { color: var(--text); }
     .modal-body { padding: 20px 24px; }
-    .modal-footer { padding: 16px 24px; border-top: 1px solid var(--border); display: flex; gap: 10px; justify-content: flex-end; position: sticky; bottom: 0; background: white; z-index: 10; }
+    .modal-footer { padding: 16px 24px; border-top: 1px solid var(--border); display: flex; gap: 10px; justify-content: flex-end; }
 
     .btn-cancel { background: white; border: 1.5px solid var(--border); color: var(--text); padding: 9px 18px; border-radius: var(--radius); font-size: 14px; font-weight: 500; }
     .btn-cancel:hover { background: var(--gray-light); }
@@ -125,36 +120,36 @@
 
     .table-footer { padding: 12px 16px; border-top: 1px solid var(--border); font-size: 13px; color: var(--text-soft); display: flex; justify-content: space-between; }
 
-    .materials-section { margin-top: 20px; border: 1.5px solid var(--border); border-radius: var(--radius); overflow: hidden; }
-    .materials-header { background: var(--gray-light); padding: 12px 16px; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-soft); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 6px; }
-    .materials-search-row { padding: 12px 16px; border-bottom: 1px solid var(--border); display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
-    .materials-search-row input { flex: 1; min-width: 160px; padding: 8px 12px; border: 1.5px solid var(--border); border-radius: var(--radius); font-size: 13px; }
+    .materials-section { margin-top: 16px; border: 1.5px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+    .materials-header { background: var(--gray-light); padding: 10px 14px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-soft); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 6px; }
+    .materials-search-row { padding: 10px 14px; border-bottom: 1px solid var(--border); display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+    .materials-search-row input { flex: 1; min-width: 150px; padding: 8px 12px; border: 1.5px solid var(--border); border-radius: var(--radius); font-size: 14px; }
     .materials-search-row input:focus { outline: none; border-color: var(--blue); }
-    .zip-input { width: 90px !important; flex: none !important; }
-    .btn-search-mat { background: var(--blue); color: white; border: none; padding: 8px 16px; border-radius: var(--radius); font-size: 13px; font-weight: 600; white-space: nowrap; }
+    .zip-input { width: 80px !important; flex: none !important; }
+    .btn-search-mat { background: var(--blue); color: white; border: none; padding: 8px 16px; border-radius: var(--radius); font-size: 14px; font-weight: 600; white-space: nowrap; }
     .btn-search-mat:hover { background: var(--blue-dark); }
     .btn-search-mat:disabled { opacity: 0.6; cursor: default; }
-    .mat-results { padding: 0; }
-    .mat-result-item { display: flex; align-items: center; gap: 10px; padding: 10px 16px; border-bottom: 1px solid var(--border); font-size: 13px; flex-wrap: wrap; }
+    .mat-result-item { display: flex; align-items: center; gap: 10px; padding: 9px 14px; border-bottom: 1px solid var(--border); font-size: 13px; flex-wrap: wrap; }
     .mat-result-item:last-child { border-bottom: none; }
     .mat-result-item:hover { background: var(--blue-light); }
-    .mat-name { flex: 1; font-weight: 500; min-width: 120px; }
+    .mat-name { flex: 1; font-weight: 500; min-width: 110px; }
     .mat-store { font-size: 11px; font-weight: 700; padding: 2px 7px; border-radius: 10px; white-space: nowrap; }
     .mat-store.homedepot { background: #fff0e6; color: #f96302; }
     .mat-store.lowes { background: #e6f0ff; color: #004990; }
-    .mat-price { font-weight: 700; color: var(--green); white-space: nowrap; min-width: 60px; text-align: right; }
+    .mat-price { font-weight: 700; color: var(--green); white-space: nowrap; min-width: 58px; text-align: right; }
     .btn-add-mat { background: var(--green-light); color: var(--green); border: 1px solid #86efac; padding: 4px 10px; border-radius: 5px; font-size: 12px; font-weight: 600; white-space: nowrap; }
     .btn-add-mat:hover { background: #dcfce7; }
-    .mat-added-list { padding: 12px 16px; border-top: 1px solid var(--border); background: #fafafa; }
+    .mat-added-list { padding: 10px 14px; border-top: 1px solid var(--border); background: #fafafa; }
     .mat-added-title { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-soft); margin-bottom: 8px; }
     .mat-added-item { display: flex; align-items: center; gap: 8px; padding: 6px 0; border-bottom: 1px solid var(--border); font-size: 13px; flex-wrap: wrap; }
     .mat-added-item:last-child { border-bottom: none; }
-    .mat-added-name { flex: 1; min-width: 100px; }
-    .mat-qty-input { width: 54px; padding: 4px 6px; border: 1.5px solid var(--border); border-radius: 5px; font-size: 13px; text-align: center; }
-    .mat-added-price { font-weight: 600; color: var(--green); min-width: 64px; text-align: right; }
-    .btn-remove-mat { background: none; border: none; color: var(--red); font-size: 18px; line-height: 1; padding: 0 4px; }
-    .mat-total-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0 4px; font-weight: 700; font-size: 14px; }
-    .mat-info-note { font-size: 11px; color: var(--text-soft); padding: 8px 16px; border-top: 1px solid var(--border); background: #fafafa; }
+    .mat-added-name { flex: 1; min-width: 90px; }
+    .mat-qty-input { width: 52px; padding: 4px 6px; border: 1.5px solid var(--border); border-radius: 5px; font-size: 13px; text-align: center; }
+    .mat-added-price { font-weight: 600; color: var(--green); min-width: 62px; text-align: right; }
+    .btn-remove-mat { background: none; border: none; color: var(--red); font-size: 18px; line-height: 1; padding: 0 4px; cursor: pointer; }
+    .mat-total-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0 2px; font-weight: 700; font-size: 14px; }
+    .mat-info-note { font-size: 11px; color: var(--text-soft); padding: 8px 14px; border-top: 1px solid var(--border); background: #fafafa; }
+    .btn-link-sm { background: none; border: none; color: var(--blue); cursor: pointer; font-size: 12px; padding: 0; margin-top: 6px; }
 
     @media (max-width: 600px) {
       .navbar { padding: 0 12px; }
@@ -180,25 +175,20 @@
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFyeWh2Zmloc3VwcHBycXhuc3pmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA3ODM2NjgsImV4cCI6MjA5NjM1OTY2OH0.Zj5I5oFhZ8qQqfPmnWklMkEhny_f73Uq2wBkGAE-Mqw'
     );
 
-    // ── ERROR BOUNDARY (stops the white screen of death) ───
+    // ── ERROR BOUNDARY (prevents white screen) ─────────────
     class ErrorBoundary extends React.Component {
       constructor(props) { super(props); this.state = { hasError: false, msg: '' }; }
       static getDerivedStateFromError(error) { return { hasError: true, msg: error && error.message ? error.message : String(error) }; }
       componentDidCatch(error, info) { console.error('Caught by ErrorBoundary:', error, info); }
-      reset() { this.setState({ hasError: false, msg: '' }); }
       render() {
         if (this.state.hasError) {
           return (
-            <div style={{padding:'40px 20px',maxWidth:'500px',margin:'40px auto',textAlign:'center'}}>
-              <div style={{fontSize:'40px',marginBottom:'12px'}}>⚠️</div>
-              <h2 style={{fontSize:'18px',marginBottom:'10px'}}>Something hiccuped</h2>
-              <p style={{color:'var(--text-soft)',fontSize:'14px',marginBottom:'8px'}}>
-                The app caught an error instead of going blank. You can close this and keep working.
-              </p>
-              <p style={{color:'var(--text-soft)',fontSize:'12px',marginBottom:'20px',fontFamily:'monospace',background:'#f3f4f6',padding:'8px',borderRadius:'6px',wordBreak:'break-word'}}>
-                {this.state.msg}
-              </p>
-              <button className="btn-primary" style={{maxWidth:'200px',margin:'0 auto'}} onClick={() => this.reset()}>Back to App</button>
+            <div style={{padding:'40px 20px',maxWidth:'460px',margin:'40px auto',textAlign:'center'}}>
+              <div style={{fontSize:'36px',marginBottom:'10px'}}>⚠️</div>
+              <h2 style={{fontSize:'18px',marginBottom:'8px'}}>Something hiccuped</h2>
+              <p style={{color:'var(--text-soft)',fontSize:'14px',marginBottom:'8px'}}>The app caught an error instead of going blank.</p>
+              <p style={{color:'var(--text-soft)',fontSize:'12px',marginBottom:'18px',fontFamily:'monospace',background:'#f3f4f6',padding:'8px',borderRadius:'6px',wordBreak:'break-word'}}>{this.state.msg}</p>
+              <button className="btn-primary" style={{maxWidth:'200px',margin:'0 auto'}} onClick={() => this.setState({ hasError: false, msg: '' })}>Back to App</button>
             </div>
           );
         }
@@ -208,42 +198,40 @@
 
     // ── LOGIN ──────────────────────────────────────────────
     function Login() {
-      const [tab, setTab] = useState('signin');
-      const [mode, setMode] = useState('main');
+      const [mode, setMode] = useState('login'); // 'login' | 'forgot' | 'sent' | 'signup'
       const [email, setEmail] = useState('');
       const [password, setPassword] = useState('');
       const [confirmPw, setConfirmPw] = useState('');
       const [fullName, setFullName] = useState('');
       const [loading, setLoading] = useState(false);
       const [error, setError] = useState('');
-      const [success, setSuccess] = useState('');
+      const [info, setInfo] = useState('');
 
-      async function handleSignIn(ev) {
-        ev.preventDefault();
-        setLoading(true); setError(''); setSuccess('');
+      async function handleLogin(e) {
+        e.preventDefault();
+        setLoading(true); setError('');
         const { error } = await db.auth.signInWithPassword({ email, password });
         if (error) { setError(error.message); setLoading(false); }
       }
 
-      async function handleSignUp(ev) {
-        ev.preventDefault();
+      async function handleSignUp(e) {
+        e.preventDefault();
         if (password !== confirmPw) { setError("Passwords don't match."); return; }
         if (password.length < 6) { setError("Password must be at least 6 characters."); return; }
-        setLoading(true); setError(''); setSuccess('');
-        const { error } = await db.auth.signUp({
-          email, password,
-          options: { data: { full_name: fullName } }
-        });
+        setLoading(true); setError(''); setInfo('');
+        const { error } = await db.auth.signUp({ email, password, options: { data: { full_name: fullName } } });
         if (error) { setError(error.message); setLoading(false); return; }
         setLoading(false);
-        setSuccess('Account created! Check your email to confirm, or sign in if email confirmation is off.');
-        setTab('signin');
+        setInfo('Account created! Check your email to confirm, or sign in if confirmation is off.');
+        setMode('login');
       }
 
-      async function handleForgot(ev) {
-        ev.preventDefault();
-        setLoading(true); setError(''); setSuccess('');
-        const { error } = await db.auth.resetPasswordForEmail(email, { redirectTo: window.location.href });
+      async function handleForgot(e) {
+        e.preventDefault();
+        setLoading(true); setError('');
+        const { error } = await db.auth.resetPasswordForEmail(email, {
+          redirectTo: window.location.href,
+        });
         if (error) { setError(error.message); setLoading(false); return; }
         setLoading(false);
         setMode('sent');
@@ -255,9 +243,9 @@
             <div className="login-logo">📧</div>
             <h1 className="login-title">Check Your Email</h1>
             <p style={{textAlign:'center',color:'var(--text-soft)',fontSize:'14px',margin:'12px 0 24px'}}>
-              We sent a password reset link to <strong style={{color:'var(--text)'}}>{email}</strong>. Click the link to set a new password.
+              We sent a password reset link to <strong style={{color:'var(--text)'}}>{email}</strong>. Click the link in that email to set a new password.
             </p>
-            <button className="btn-primary" onClick={() => { setMode('main'); setError(''); setSuccess(''); }}>Back to Sign In</button>
+            <button className="btn-primary" onClick={() => { setMode('login'); setError(''); }}>Back to Sign In</button>
           </div>
         </div>
       );
@@ -272,12 +260,49 @@
             <form onSubmit={handleForgot}>
               <div className="form-group">
                 <label>Email Address</label>
-                <input type="email" value={email} onChange={ev => setEmail(ev.target.value)} placeholder="you@example.com" required autoFocus />
+                <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="you@example.com" required autoFocus />
               </div>
-              <button type="submit" className="btn-primary" disabled={loading}>{loading ? 'Sending...' : 'Send Reset Email'}</button>
+              <button type="submit" className="btn-primary" disabled={loading}>
+                {loading ? 'Sending...' : 'Send Reset Email'}
+              </button>
             </form>
             <p style={{textAlign:'center',marginTop:'16px'}}>
-              <button onClick={() => { setMode('main'); setError(''); }} className="btn-link">← Back to Sign In</button>
+              <button onClick={() => { setMode('login'); setError(''); }} style={{background:'none',border:'none',color:'var(--blue)',cursor:'pointer',fontSize:'14px'}}>← Back to Sign In</button>
+            </p>
+          </div>
+        </div>
+      );
+
+      if (mode === 'signup') return (
+        <div className="login-page">
+          <div className="login-card">
+            <div className="login-logo">🔧</div>
+            <h1 className="login-title">Create Account</h1>
+            <p className="login-subtitle">Set up your Handy Pro CRM login</p>
+            {error && <div className="error-msg">{error}</div>}
+            <form onSubmit={handleSignUp}>
+              <div className="form-group">
+                <label>Full Name</label>
+                <input type="text" value={fullName} onChange={e => setFullName(e.target.value)} placeholder="Your name" autoFocus />
+              </div>
+              <div className="form-group">
+                <label>Email Address</label>
+                <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="you@example.com" required />
+              </div>
+              <div className="form-group">
+                <label>Password</label>
+                <input type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Min 6 characters" required minLength={6} />
+              </div>
+              <div className="form-group">
+                <label>Confirm Password</label>
+                <input type="password" value={confirmPw} onChange={e => setConfirmPw(e.target.value)} placeholder="••••••••" required />
+              </div>
+              <button type="submit" className="btn-primary" disabled={loading}>
+                {loading ? 'Creating...' : 'Create Account'}
+              </button>
+            </form>
+            <p style={{textAlign:'center',marginTop:'16px'}}>
+              <button onClick={() => { setMode('login'); setError(''); }} style={{background:'none',border:'none',color:'var(--blue)',cursor:'pointer',fontSize:'14px'}}>← Back to Sign In</button>
             </p>
           </div>
         </div>
@@ -288,55 +313,34 @@
           <div className="login-card">
             <div className="login-logo">🔧</div>
             <h1 className="login-title">Handy Pro CRM</h1>
-            <p className="login-subtitle">Your business, all in one place</p>
-            <div className="login-tab-row">
-              <button className={`login-tab ${tab === 'signin' ? 'active' : ''}`} onClick={() => { setTab('signin'); setError(''); setSuccess(''); }}>Sign In</button>
-              <button className={`login-tab ${tab === 'signup' ? 'active' : ''}`} onClick={() => { setTab('signup'); setError(''); setSuccess(''); }}>Create Account</button>
-            </div>
+            <p className="login-subtitle">Sign in to access your account</p>
             {error && <div className="error-msg">{error}</div>}
-            {success && <div className="success-msg">{success}</div>}
-            {tab === 'signin' ? (
-              <form onSubmit={handleSignIn}>
-                <div className="form-group">
-                  <label>Email Address</label>
-                  <input type="email" value={email} onChange={ev => setEmail(ev.target.value)} placeholder="you@example.com" required autoFocus />
-                </div>
-                <div className="form-group">
-                  <label>Password</label>
-                  <input type="password" value={password} onChange={ev => setPassword(ev.target.value)} placeholder="••••••••" required />
-                </div>
-                <button type="submit" className="btn-primary" disabled={loading}>{loading ? 'Signing in...' : 'Sign In'}</button>
-                <p style={{textAlign:'center',marginTop:'14px'}}>
-                  <button type="button" onClick={() => { setMode('forgot'); setError(''); }} className="btn-link">Forgot password?</button>
-                </p>
-              </form>
-            ) : (
-              <form onSubmit={handleSignUp}>
-                <div className="form-group">
-                  <label>Full Name</label>
-                  <input type="text" value={fullName} onChange={ev => setFullName(ev.target.value)} placeholder="Your name" autoFocus />
-                </div>
-                <div className="form-group">
-                  <label>Email Address</label>
-                  <input type="email" value={email} onChange={ev => setEmail(ev.target.value)} placeholder="you@example.com" required />
-                </div>
-                <div className="form-group">
-                  <label>Password</label>
-                  <input type="password" value={password} onChange={ev => setPassword(ev.target.value)} placeholder="Min 6 characters" required minLength={6} />
-                </div>
-                <div className="form-group">
-                  <label>Confirm Password</label>
-                  <input type="password" value={confirmPw} onChange={ev => setConfirmPw(ev.target.value)} placeholder="••••••••" required />
-                </div>
-                <button type="submit" className="btn-primary" disabled={loading}>{loading ? 'Creating...' : 'Create Account'}</button>
-              </form>
-            )}
+            {info && <div style={{background:'var(--green-light)',border:'1px solid #86efac',color:'var(--green)',padding:'10px 14px',borderRadius:'var(--radius)',fontSize:'13px',marginBottom:'16px'}}>{info}</div>}
+            <form onSubmit={handleLogin}>
+              <div className="form-group">
+                <label>Email Address</label>
+                <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="you@example.com" required autoFocus />
+              </div>
+              <div className="form-group">
+                <label>Password</label>
+                <input type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="••••••••" required />
+              </div>
+              <button type="submit" className="btn-primary" disabled={loading}>
+                {loading ? 'Signing in...' : 'Sign In'}
+              </button>
+            </form>
+            <p style={{textAlign:'center',marginTop:'16px'}}>
+              <button onClick={() => { setMode('forgot'); setError(''); }} style={{background:'none',border:'none',color:'var(--blue)',cursor:'pointer',fontSize:'14px'}}>Forgot password?</button>
+            </p>
+            <p style={{textAlign:'center',marginTop:'8px',fontSize:'13px',color:'#6b7280'}}>
+              Don't have an account? <button onClick={() => { setMode('signup'); setError(''); setInfo(''); }} style={{background:'none',border:'none',color:'var(--blue)',cursor:'pointer',fontSize:'13px',fontWeight:600}}>Create one</button>
+            </p>
           </div>
         </div>
       );
     }
 
-    // ── RESET PASSWORD ─────────────────────────────────────
+    // ── RESET PASSWORD (after clicking email link) ─────────
     function ResetPassword({ onDone }) {
       const [password, setPassword] = useState('');
       const [confirm, setConfirm] = useState('');
@@ -344,14 +348,15 @@
       const [error, setError] = useState('');
       const [done, setDone] = useState(false);
 
-      async function handleReset(ev) {
-        ev.preventDefault();
+      async function handleReset(e) {
+        e.preventDefault();
         if (password !== confirm) { setError("Passwords don't match."); return; }
         if (password.length < 6) { setError("Password must be at least 6 characters."); return; }
         setLoading(true); setError('');
         const { error } = await db.auth.updateUser({ password });
         if (error) { setError(error.message); setLoading(false); return; }
-        setLoading(false); setDone(true);
+        setLoading(false);
+        setDone(true);
         setTimeout(onDone, 2000);
       }
 
@@ -368,13 +373,15 @@
                   <form onSubmit={handleReset}>
                     <div className="form-group">
                       <label>New Password</label>
-                      <input type="password" value={password} onChange={ev => setPassword(ev.target.value)} placeholder="••••••••" required autoFocus minLength={6} />
+                      <input type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="••••••••" required autoFocus minLength={6} />
                     </div>
                     <div className="form-group">
                       <label>Confirm Password</label>
-                      <input type="password" value={confirm} onChange={ev => setConfirm(ev.target.value)} placeholder="••••••••" required />
+                      <input type="password" value={confirm} onChange={e => setConfirm(e.target.value)} placeholder="••••••••" required />
                     </div>
-                    <button type="submit" className="btn-primary" disabled={loading}>{loading ? 'Saving...' : 'Set New Password'}</button>
+                    <button type="submit" className="btn-primary" disabled={loading}>
+                      {loading ? 'Saving...' : 'Set New Password'}
+                    </button>
                   </form>
                 </>
             }
@@ -389,9 +396,9 @@
       return (
         <nav className="navbar">
           <span className="navbar-brand">🔧 Handy Pro</span>
-          {['dashboard','customers','estimates'].map(tabName => (
-            <button key={tabName} className={`nav-tab ${activeTab === tabName ? 'active' : ''}`} onClick={() => setActiveTab(tabName)}>
-              {tabName.charAt(0).toUpperCase() + tabName.slice(1)}
+          {['dashboard','customers','estimates'].map(tab => (
+            <button key={tab} className={`nav-tab ${activeTab === tab ? 'active' : ''}`} onClick={() => setActiveTab(tab)}>
+              {tab.charAt(0).toUpperCase() + tab.slice(1)}
             </button>
           ))}
           <div className="navbar-right">
@@ -408,22 +415,18 @@
       const [recent, setRecent] = useState([]);
       const [loading, setLoading] = useState(true);
 
-      useEffect(() => { loadData(); }, []);
+      useEffect(() => { load(); }, []);
 
-      async function loadData() {
+      async function load() {
         setLoading(true);
-        try {
-          const [cRes, eRes] = await Promise.all([
-            db.from('customers').select('id', { count: 'exact' }),
-            db.from('estimates').select('*').order('created_at', { ascending: false }).limit(5),
-          ]);
-          const ests = eRes.data || [];
-          const approvedTotal = ests.filter(e => e.status === 'approved' || e.status === 'completed').reduce((s, e) => s + (parseFloat(e.amount) || 0), 0);
-          setStats({ customers: cRes.count || 0, estimates: ests.length, approvedTotal, pending: ests.filter(e => e.status === 'draft' || e.status === 'sent').length });
-          setRecent(ests.slice(0, 5));
-        } catch (err) {
-          console.error(err);
-        }
+        const [cRes, eRes] = await Promise.all([
+          db.from('customers').select('id', { count: 'exact' }),
+          db.from('estimates').select('*').order('created_at', { ascending: false }).limit(5),
+        ]);
+        const ests = eRes.data || [];
+        const approvedTotal = ests.filter(e => e.status === 'approved' || e.status === 'completed').reduce((s, e) => s + (parseFloat(e.amount) || 0), 0);
+        setStats({ customers: cRes.count || 0, estimates: ests.length, approvedTotal, pending: ests.filter(e => e.status === 'draft' || e.status === 'sent').length });
+        setRecent(ests.slice(0, 5));
         setLoading(false);
       }
 
@@ -463,13 +466,13 @@
                 <table>
                   <thead><tr><th>Customer</th><th>Title</th><th>Amount</th><th>Status</th><th>Date</th></tr></thead>
                   <tbody>
-                    {recent.map(est => (
-                      <tr key={est.id}>
-                        <td>{est.customer_name || '—'}</td>
-                        <td>{est.title}</td>
-                        <td>{est.amount != null ? `$${parseFloat(est.amount).toLocaleString()}` : '—'}</td>
-                        <td><span className={`badge badge-${est.status}`}>{est.status}</span></td>
-                        <td>{est.estimate_date || '—'}</td>
+                    {recent.map(e => (
+                      <tr key={e.id}>
+                        <td>{e.customer_name || '—'}</td>
+                        <td>{e.title}</td>
+                        <td>{e.amount != null ? `$${parseFloat(e.amount).toLocaleString()}` : '—'}</td>
+                        <td><span className={`badge badge-${e.status}`}>{e.status}</span></td>
+                        <td>{e.estimate_date || '—'}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -494,37 +497,33 @@
       const [saving, setSaving] = useState(false);
       const [error, setError] = useState('');
 
-      useEffect(() => { loadCustomers(); }, []);
+      useEffect(() => { load(); }, []);
 
-      async function loadCustomers() {
+      async function load() {
         setLoading(true);
-        try {
-          const { data } = await db.from('customers').select('*').order('name');
-          setList(data || []);
-        } catch (err) { console.error(err); }
+        const { data } = await db.from('customers').select('*').order('name');
+        setList(data || []);
         setLoading(false);
       }
 
       function openAdd() { setEditing(null); setForm(EMPTY_C); setError(''); setShow(true); }
       function openEdit(c) { setEditing(c); setForm({ name: c.name||'', phone: c.phone||'', email: c.email||'', address: c.address||'', notes: c.notes||'' }); setError(''); setShow(true); }
-      function closeModal() { setShow(false); setEditing(null); setForm(EMPTY_C); setError(''); }
-      function handleChange(ev) { const { name, value } = ev.target; setForm(f => ({ ...f, [name]: value })); }
+      function close() { setShow(false); setEditing(null); setForm(EMPTY_C); setError(''); }
+      function change(e) { setForm(f => ({ ...f, [e.target.name]: e.target.value })); }
 
-      async function saveCustomer() {
+      async function save() {
         if (!form.name.trim()) { setError('Name is required.'); return; }
         setSaving(true); setError('');
-        try {
-          const op = editing ? db.from('customers').update(form).eq('id', editing.id) : db.from('customers').insert(form);
-          const { error: dbErr } = await op;
-          if (dbErr) { setError(dbErr.message); setSaving(false); return; }
-        } catch (err) { setError(String(err)); setSaving(false); return; }
-        setSaving(false); closeModal(); loadCustomers();
+        const op = editing ? db.from('customers').update(form).eq('id', editing.id) : db.from('customers').insert(form);
+        const { error } = await op;
+        if (error) { setError(error.message); setSaving(false); return; }
+        setSaving(false); close(); load();
       }
 
-      async function deleteCustomer(c) {
+      async function del(c) {
         if (!confirm(`Delete ${c.name}?`)) return;
         await db.from('customers').delete().eq('id', c.id);
-        loadCustomers();
+        load();
       }
 
       const filtered = list.filter(c => [c.name, c.phone, c.email, c.address].join(' ').toLowerCase().includes(search.toLowerCase()));
@@ -537,7 +536,7 @@
           </div>
           <div className="card">
             <div className="search-bar">
-              <input type="text" placeholder="Search customers..." value={search} onChange={ev => setSearch(ev.target.value)} />
+              <input type="text" placeholder="Search customers..." value={search} onChange={e => setSearch(e.target.value)} />
             </div>
             {loading ? <div className="loading"><div className="spinner"></div>Loading...</div>
             : filtered.length === 0 ? <div className="empty-state"><div className="empty-icon">👥</div><div>{search ? 'No results.' : 'No customers yet.'}</div></div>
@@ -552,7 +551,7 @@
                       <td>{c.address||'—'}</td>
                       <td><div className="action-btns">
                         <button className="btn-edit" onClick={() => openEdit(c)}>Edit</button>
-                        <button className="btn-delete" onClick={() => deleteCustomer(c)}>Delete</button>
+                        <button className="btn-delete" onClick={() => del(c)}>Delete</button>
                       </div></td>
                     </tr>
                   ))}
@@ -561,25 +560,25 @@
             }
           </div>
           {show && (
-            <div className="modal-overlay" onClick={ev => ev.target === ev.currentTarget && closeModal()}>
+            <div className="modal-overlay" onClick={e => e.target === e.currentTarget && close()}>
               <div className="modal">
                 <div className="modal-header">
                   <span className="modal-title">{editing ? 'Edit Customer' : 'Add Customer'}</span>
-                  <button className="modal-close" onClick={closeModal}>×</button>
+                  <button className="modal-close" onClick={close}>×</button>
                 </div>
                 <div className="modal-body">
                   {error && <div className="error-msg">{error}</div>}
-                  <div className="form-group"><label>Name *</label><input name="name" value={form.name} onChange={handleChange} placeholder="Full name" autoFocus /></div>
+                  <div className="form-group"><label>Name *</label><input name="name" value={form.name} onChange={change} placeholder="Full name" autoFocus /></div>
                   <div className="form-row">
-                    <div className="form-group"><label>Phone</label><input name="phone" value={form.phone} onChange={handleChange} placeholder="(555) 000-0000" /></div>
-                    <div className="form-group"><label>Email</label><input name="email" type="email" value={form.email} onChange={handleChange} placeholder="email@example.com" /></div>
+                    <div className="form-group"><label>Phone</label><input name="phone" value={form.phone} onChange={change} placeholder="(555) 000-0000" /></div>
+                    <div className="form-group"><label>Email</label><input name="email" type="email" value={form.email} onChange={change} placeholder="email@example.com" /></div>
                   </div>
-                  <div className="form-group"><label>Address</label><input name="address" value={form.address} onChange={handleChange} placeholder="123 Main St, City, ST" /></div>
-                  <div className="form-group"><label>Notes</label><textarea name="notes" value={form.notes} onChange={handleChange} placeholder="Any notes..." /></div>
+                  <div className="form-group"><label>Address</label><input name="address" value={form.address} onChange={change} placeholder="123 Main St, City, ST" /></div>
+                  <div className="form-group"><label>Notes</label><textarea name="notes" value={form.notes} onChange={change} placeholder="Any notes..." /></div>
                 </div>
                 <div className="modal-footer">
-                  <button className="btn-cancel" onClick={closeModal}>Cancel</button>
-                  <button className="btn-save" onClick={saveCustomer} disabled={saving}>{saving ? 'Saving...' : 'Save Customer'}</button>
+                  <button className="btn-cancel" onClick={close}>Cancel</button>
+                  <button className="btn-save" onClick={save} disabled={saving}>{saving ? 'Saving...' : 'Save Customer'}</button>
                 </div>
               </div>
             </div>
@@ -588,7 +587,7 @@
       );
     }
 
-    // ── MATERIALS DATA ─────────────────────────────────────
+    // ── MATERIAL PRICE LOOKUP ──────────────────────────────
     const COMMON_MATERIALS = [
       { name: '2x4x8 Lumber (Pine)', store: 'homedepot', price: 4.48, unit: 'each', category: 'lumber wood stud' },
       { name: '2x4x10 Lumber (Pine)', store: 'homedepot', price: 5.98, unit: 'each', category: 'lumber wood stud' },
@@ -645,33 +644,24 @@
       const [query, setQuery] = useState('');
       const [zip, setZip] = useState('08822');
       const [results, setResults] = useState([]);
-      const [searching, setSearching] = useState(false);
       const [searched, setSearched] = useState(false);
 
       function searchMaterials() {
         const q = (query || '').toLowerCase().trim();
         if (!q) return;
-        setSearching(true);
-        setSearched(false);
         const words = q.split(/\s+/);
         const scored = COMMON_MATERIALS.map(item => {
           const name = item.name.toLowerCase();
           const cat = (item.category || '').toLowerCase();
           let score = 0;
-          words.forEach(w => {
-            if (name.includes(w)) score += 2;
-            if (cat.includes(w)) score += 1;
-          });
+          words.forEach(w => { if (name.includes(w)) score += 2; if (cat.includes(w)) score += 1; });
           return { name: item.name, store: item.store, price: item.price, unit: item.unit, score };
         }).filter(item => item.score > 0).sort((a, b) => b.score - a.score).slice(0, 12);
         setResults(scored);
-        setSearching(false);
         setSearched(true);
       }
 
-      function handleKeyDown(ev) {
-        if (ev.key === 'Enter') { ev.preventDefault(); searchMaterials(); }
-      }
+      function handleKeyDown(ev) { if (ev.key === 'Enter') { ev.preventDefault(); searchMaterials(); } }
 
       return (
         <div className="materials-section">
@@ -682,26 +672,22 @@
           <div className="materials-search-row">
             <input type="text" placeholder="Search: lumber, drywall, roofing, concrete..." value={query} onChange={ev => setQuery(ev.target.value)} onKeyDown={handleKeyDown} />
             <input type="text" className="zip-input" placeholder="ZIP" value={zip} onChange={ev => setZip(ev.target.value)} maxLength={5} />
-            <button type="button" className="btn-search-mat" onClick={searchMaterials} disabled={searching || !query.trim()}>{searching ? '...' : 'Search'}</button>
+            <button type="button" className="btn-search-mat" onClick={searchMaterials} disabled={!query.trim()}>Search</button>
           </div>
           {searched && results.length === 0 && (
-            <div style={{padding:'16px',fontSize:'13px',color:'var(--text-soft)',textAlign:'center'}}>
+            <div style={{padding:'14px',fontSize:'13px',color:'var(--text-soft)',textAlign:'center'}}>
               No results. Try: lumber, plywood, drywall, shingles, concrete, flooring, paint, screws, insulation, door, window
             </div>
           )}
-          {results.length > 0 && (
-            <div className="mat-results">
-              {results.map((item, idx) => (
-                <div key={idx} className="mat-result-item">
-                  <span className="mat-name">{item.name}</span>
-                  <span className={`mat-store ${item.store}`}>{item.store === 'homedepot' ? 'Home Depot' : "Lowe's"}</span>
-                  <span className="mat-price">${item.price.toFixed(2)}</span>
-                  <span style={{fontSize:'11px',color:'var(--text-soft)',marginRight:'4px'}}>/{item.unit}</span>
-                  <button type="button" className="btn-add-mat" onClick={() => onAddMaterial(item)}>+ Add</button>
-                </div>
-              ))}
+          {results.length > 0 && results.map((item, idx) => (
+            <div key={idx} className="mat-result-item">
+              <span className="mat-name">{item.name}</span>
+              <span className={`mat-store ${item.store}`}>{item.store === 'homedepot' ? 'Home Depot' : "Lowe's"}</span>
+              <span className="mat-price">${item.price.toFixed(2)}</span>
+              <span style={{fontSize:'11px',color:'var(--text-soft)',marginRight:'4px'}}>/{item.unit}</span>
+              <button type="button" className="btn-add-mat" onClick={() => onAddMaterial(item)}>+ Add</button>
             </div>
-          )}
+          ))}
           <div className="mat-info-note">
             💡 Approximate retail reference prices for the Hunterdon County NJ area. Verify current prices at HomeDepot.com or Lowes.com before finalizing.
           </div>
@@ -735,16 +721,7 @@
 
     // ── ESTIMATES ──────────────────────────────────────────
     const STATUSES = ['draft','sent','approved','declined','completed'];
-    function freshEstimateForm() {
-      return {
-        customer_name: '',
-        title: '',
-        description: '',
-        amount: '',
-        status: 'draft',
-        estimate_date: new Date().toISOString().split('T')[0]
-      };
-    }
+    const EMPTY_E = { customer_name: '', title: '', description: '', amount: '', status: 'draft', estimate_date: new Date().toISOString().split('T')[0] };
 
     function Estimates() {
       const [list, setList] = useState([]);
@@ -752,137 +729,75 @@
       const [loading, setLoading] = useState(true);
       const [search, setSearch] = useState('');
       const [filterStatus, setFilterStatus] = useState('all');
-      const [showModal, setShowModal] = useState(false);
-      const [editingEst, setEditingEst] = useState(null);
-      const [form, setForm] = useState(freshEstimateForm());
+      const [show, setShow] = useState(false);
+      const [editing, setEditing] = useState(null);
+      const [form, setForm] = useState(EMPTY_E);
       const [saving, setSaving] = useState(false);
-      const [formError, setFormError] = useState('');
+      const [error, setError] = useState('');
       const [materials, setMaterials] = useState([]);
 
-      useEffect(() => { loadAll(); }, []);
+      useEffect(() => { load(); }, []);
 
-      async function loadAll() {
+      async function load() {
         setLoading(true);
-        try {
-          const [eRes, cRes] = await Promise.all([
-            db.from('estimates').select('*').order('created_at', { ascending: false }),
-            db.from('customers').select('id,name').order('name'),
-          ]);
-          setList(eRes.data || []);
-          setCustomers(cRes.data || []);
-        } catch (err) { console.error(err); }
+        const [eRes, cRes] = await Promise.all([
+          db.from('estimates').select('*').order('created_at', { ascending: false }),
+          db.from('customers').select('id,name').order('name'),
+        ]);
+        setList(eRes.data || []);
+        setCustomers(cRes.data || []);
         setLoading(false);
       }
 
-      function openAdd() {
-        setEditingEst(null);
-        setForm(freshEstimateForm());  // always blank customer + fields
-        setMaterials([]);
-        setFormError('');
-        setShowModal(true);
-      }
-
-      function openEdit(est) {
-        setEditingEst(est);
-        setForm({
-          customer_name: est.customer_name || '',
-          title: est.title || '',
-          description: est.description || '',
-          amount: est.amount != null ? String(est.amount) : '',
-          status: est.status || 'draft',
-          estimate_date: est.estimate_date || new Date().toISOString().split('T')[0]
-        });
-        setMaterials([]);
-        setFormError('');
-        setShowModal(true);
-      }
-
-      function closeModal() {
-        setShowModal(false);
-        setEditingEst(null);
-        setForm(freshEstimateForm());
-        setMaterials([]);
-        setFormError('');
-      }
-
-      function handleFormChange(ev) {
-        const { name, value } = ev.target;
-        setForm(f => ({ ...f, [name]: value }));
-      }
+      function openAdd() { setEditing(null); setForm(EMPTY_E); setMaterials([]); setError(''); setShow(true); }
+      function openEdit(e) { setEditing(e); setForm({ customer_name: e.customer_name||'', title: e.title||'', description: e.description||'', amount: e.amount != null ? String(e.amount) : '', status: e.status||'draft', estimate_date: e.estimate_date||new Date().toISOString().split('T')[0] }); setMaterials([]); setError(''); setShow(true); }
+      function close() { setShow(false); setEditing(null); setForm(EMPTY_E); setMaterials([]); setError(''); }
+      function change(e) { setForm(f => ({ ...f, [e.target.name]: e.target.value })); }
 
       function addMaterial(item) {
         setMaterials(prev => {
           const idx = prev.findIndex(m => m.name === item.name && m.store === item.store);
-          if (idx >= 0) {
-            const updated = prev.slice();
-            updated[idx] = { ...updated[idx], qty: (updated[idx].qty || 1) + 1 };
-            return updated;
-          }
+          if (idx >= 0) { const u = prev.slice(); u[idx] = { ...u[idx], qty: (u[idx].qty || 1) + 1 }; return u; }
           return [...prev, { name: item.name, store: item.store, price: item.price, unit: item.unit, qty: 1 }];
         });
       }
-
-      function updateMaterialQty(idx, qty) {
-        setMaterials(prev => prev.map((m, i) => i === idx ? { ...m, qty } : m));
-      }
-
-      function removeMaterial(idx) {
-        setMaterials(prev => prev.filter((_, i) => i !== idx));
-      }
-
+      function updateMaterialQty(idx, qty) { setMaterials(prev => prev.map((m, i) => i === idx ? { ...m, qty } : m)); }
+      function removeMaterial(idx) { setMaterials(prev => prev.filter((_, i) => i !== idx)); }
       function fillAmountFromMaterials() {
-        const matTotal = materials.reduce((sum, m) => sum + (m.price * (m.qty || 1)), 0);
-        setForm(f => ({ ...f, amount: matTotal.toFixed(2) }));
+        const t = materials.reduce((s, m) => s + (m.price * (m.qty || 1)), 0);
+        setForm(f => ({ ...f, amount: t.toFixed(2) }));
       }
 
-      async function saveEstimate() {
-        if (!form.title.trim()) { setFormError('Title is required.'); return; }
-        setSaving(true); setFormError('');
-
-        let finalDescription = form.description || '';
+      async function save() {
+        if (!form.title.trim()) { setError('Title is required.'); return; }
+        setSaving(true); setError('');
+        let desc = form.description || '';
         if (materials.length > 0) {
-          const matLines = materials.map(m => `• ${m.name} x${m.qty || 1} @ $${m.price.toFixed(2)}/${m.unit} = $${(m.price * (m.qty||1)).toFixed(2)}`).join('\n');
-          const matTotal = materials.reduce((sum, m) => sum + (m.price * (m.qty || 1)), 0);
-          const matBlock = `MATERIALS BREAKDOWN:\n${matLines}\nMaterials Subtotal: $${matTotal.toFixed(2)}`;
-          finalDescription = finalDescription ? `${finalDescription}\n\n${matBlock}` : matBlock;
+          const lines = materials.map(m => `• ${m.name} x${m.qty || 1} @ $${m.price.toFixed(2)}/${m.unit} = $${(m.price * (m.qty||1)).toFixed(2)}`).join('\n');
+          const t = materials.reduce((s, m) => s + (m.price * (m.qty || 1)), 0);
+          const block = `MATERIALS BREAKDOWN:\n${lines}\nMaterials Subtotal: $${t.toFixed(2)}`;
+          desc = desc ? `${desc}\n\n${block}` : block;
         }
-
-        const payload = {
-          customer_name: form.customer_name,
-          title: form.title,
-          description: finalDescription,
-          amount: form.amount !== '' ? parseFloat(form.amount) : null,
-          status: form.status,
-          estimate_date: form.estimate_date || null
-        };
-
-        try {
-          const op = editingEst
-            ? db.from('estimates').update(payload).eq('id', editingEst.id)
-            : db.from('estimates').insert(payload);
-          const { error: dbErr } = await op;
-          if (dbErr) { setFormError(dbErr.message); setSaving(false); return; }
-        } catch (err) { setFormError(String(err)); setSaving(false); return; }
-
-        setSaving(false);
-        closeModal();
-        loadAll();
+        const payload = { customer_name: form.customer_name, title: form.title, description: desc, amount: form.amount !== '' ? parseFloat(form.amount) : null, status: form.status, estimate_date: form.estimate_date || null };
+        const op = editing ? db.from('estimates').update(payload).eq('id', editing.id) : db.from('estimates').insert(payload);
+        const { error } = await op;
+        if (error) { setError(error.message); setSaving(false); return; }
+        setSaving(false); close(); load();
       }
 
-      async function deleteEstimate(est) {
-        if (!confirm(`Delete "${est.title}"?`)) return;
-        await db.from('estimates').delete().eq('id', est.id);
-        loadAll();
+      async function del(e) {
+        if (!confirm(`Delete "${e.title}"?`)) return;
+        await db.from('estimates').delete().eq('id', e.id);
+        load();
       }
 
-      const filtered = list.filter(est => {
-        const matchSearch = [est.customer_name, est.title, est.description].join(' ').toLowerCase().includes(search.toLowerCase());
-        const matchStatus = filterStatus === 'all' || est.status === filterStatus;
+      const filtered = list.filter(e => {
+        const matchSearch = [e.customer_name, e.title, e.description].join(' ').toLowerCase().includes(search.toLowerCase());
+        const matchStatus = filterStatus === 'all' || e.status === filterStatus;
         return matchSearch && matchStatus;
       });
 
-      const total = filtered.reduce((s, est) => s + (parseFloat(est.amount) || 0), 0);
-      const matSubtotal = materials.reduce((sum, m) => sum + (m.price * (m.qty || 1)), 0);
+      const total = filtered.reduce((s, e) => s + (parseFloat(e.amount) || 0), 0);
 
       return (
         <>
@@ -892,28 +807,28 @@
           </div>
           <div className="card">
             <div className="search-bar">
-              <input type="text" placeholder="Search estimates..." value={search} onChange={ev => setSearch(ev.target.value)} />
-              <select value={filterStatus} onChange={ev => setFilterStatus(ev.target.value)} style={{padding:'8px 10px',border:'1.5px solid var(--border)',borderRadius:'var(--radius)',fontSize:'14px',background:'white',minWidth:'120px'}}>
+              <input type="text" placeholder="Search estimates..." value={search} onChange={e => setSearch(e.target.value)} />
+              <select value={filterStatus} onChange={e => setFilterStatus(e.target.value)} style={{padding:'8px 10px',border:'1.5px solid var(--border)',borderRadius:'var(--radius)',fontSize:'14px',background:'white',minWidth:'120px'}}>
                 <option value="all">All Status</option>
                 {STATUSES.map(s => <option key={s} value={s}>{s.charAt(0).toUpperCase()+s.slice(1)}</option>)}
               </select>
             </div>
             {loading ? <div className="loading"><div className="spinner"></div>Loading...</div>
-            : filtered.length === 0 ? <div className="empty-state"><div className="empty-icon">📋</div><div>{search || filterStatus !== 'all' ? 'No results.' : 'No estimates yet. Click "+ New Estimate" to start.'}</div></div>
+            : filtered.length === 0 ? <div className="empty-state"><div className="empty-icon">📋</div><div>{search || filterStatus !== 'all' ? 'No results.' : 'No estimates yet.'}</div></div>
             : <>
                 <div className="table-wrapper"><table>
                   <thead><tr><th>Customer</th><th>Title</th><th>Date</th><th>Amount</th><th>Status</th><th>Actions</th></tr></thead>
                   <tbody>
-                    {filtered.map(est => (
-                      <tr key={est.id}>
-                        <td>{est.customer_name||'—'}</td>
-                        <td style={{fontWeight:600}}>{est.title}</td>
-                        <td>{est.estimate_date||'—'}</td>
-                        <td>{est.amount != null ? `$${parseFloat(est.amount).toLocaleString()}` : '—'}</td>
-                        <td><span className={`badge badge-${est.status}`}>{est.status}</span></td>
+                    {filtered.map(e => (
+                      <tr key={e.id}>
+                        <td>{e.customer_name||'—'}</td>
+                        <td style={{fontWeight:600}}>{e.title}</td>
+                        <td>{e.estimate_date||'—'}</td>
+                        <td>{e.amount != null ? `$${parseFloat(e.amount).toLocaleString()}` : '—'}</td>
+                        <td><span className={`badge badge-${e.status}`}>{e.status}</span></td>
                         <td><div className="action-btns">
-                          <button className="btn-edit" onClick={() => openEdit(est)}>Edit</button>
-                          <button className="btn-delete" onClick={() => deleteEstimate(est)}>Delete</button>
+                          <button className="btn-edit" onClick={() => openEdit(e)}>Edit</button>
+                          <button className="btn-delete" onClick={() => del(e)}>Delete</button>
                         </div></td>
                       </tr>
                     ))}
@@ -926,67 +841,48 @@
               </>
             }
           </div>
-
-          {showModal && (
-            <div className="modal-overlay" onClick={ev => ev.target === ev.currentTarget && closeModal()}>
+          {show && (
+            <div className="modal-overlay" onClick={e => e.target === e.currentTarget && close()}>
               <div className="modal">
                 <div className="modal-header">
-                  <span className="modal-title">{editingEst ? 'Edit Estimate' : 'New Estimate'}</span>
-                  <button className="modal-close" onClick={closeModal}>×</button>
+                  <span className="modal-title">{editing ? 'Edit Estimate' : 'New Estimate'}</span>
+                  <button className="modal-close" onClick={close}>×</button>
                 </div>
                 <div className="modal-body">
-                  {formError && <div className="error-msg">{formError}</div>}
-
+                  {error && <div className="error-msg">{error}</div>}
                   <div className="form-group">
                     <label>Customer</label>
                     {customers.length > 0
-                      ? <select name="customer_name" value={form.customer_name} onChange={handleFormChange}>
+                      ? <select name="customer_name" value={form.customer_name} onChange={change}>
                           <option value="">— Select a customer —</option>
                           {customers.map(c => <option key={c.id} value={c.name}>{c.name}</option>)}
                         </select>
-                      : <input name="customer_name" value={form.customer_name} onChange={handleFormChange} placeholder="Customer name" />
+                      : <input name="customer_name" value={form.customer_name} onChange={change} placeholder="Customer name" />
                     }
                   </div>
-
-                  <div className="form-group">
-                    <label>Title *</label>
-                    <input name="title" value={form.title} onChange={handleFormChange} placeholder="e.g. Bathroom Remodel" />
-                  </div>
-
-                  <div className="form-group">
-                    <label>Description / Scope of Work</label>
-                    <textarea name="description" value={form.description} onChange={handleFormChange} placeholder="Describe the work, scope, special notes..." />
-                  </div>
-
+                  <div className="form-group"><label>Title *</label><input name="title" value={form.title} onChange={change} placeholder="e.g. Bathroom Remodel" /></div>
+                  <div className="form-group"><label>Description</label><textarea name="description" value={form.description} onChange={change} placeholder="Scope of work, materials, details..." /></div>
                   <MaterialSearch onAddMaterial={addMaterial} />
                   <MaterialsList materials={materials} onUpdate={updateMaterialQty} onRemove={removeMaterial} />
-
                   <div className="form-row" style={{marginTop:'16px'}}>
                     <div className="form-group">
-                      <label>Total Amount ($)</label>
-                      <input name="amount" type="number" min="0" step="0.01" value={form.amount} onChange={handleFormChange} placeholder="0.00" />
+                      <label>Amount ($)</label>
+                      <input name="amount" type="number" min="0" step="0.01" value={form.amount} onChange={change} placeholder="0.00" />
                       {materials.length > 0 && (
-                        <button type="button" className="btn-link" style={{fontSize:'12px',marginTop:'6px'}} onClick={fillAmountFromMaterials}>
-                          ↻ Use materials total (${matSubtotal.toFixed(2)})
-                        </button>
+                        <button type="button" className="btn-link-sm" onClick={fillAmountFromMaterials}>↻ Use materials total (${materials.reduce((s,m)=>s+(m.price*(m.qty||1)),0).toFixed(2)})</button>
                       )}
                     </div>
-                    <div className="form-group">
-                      <label>Date</label>
-                      <input name="estimate_date" type="date" value={form.estimate_date} onChange={handleFormChange} />
-                    </div>
+                    <div className="form-group"><label>Date</label><input name="estimate_date" type="date" value={form.estimate_date} onChange={change} /></div>
                   </div>
-
-                  <div className="form-group">
-                    <label>Status</label>
-                    <select name="status" value={form.status} onChange={handleFormChange}>
+                  <div className="form-group"><label>Status</label>
+                    <select name="status" value={form.status} onChange={change}>
                       {STATUSES.map(s => <option key={s} value={s}>{s.charAt(0).toUpperCase()+s.slice(1)}</option>)}
                     </select>
                   </div>
                 </div>
                 <div className="modal-footer">
-                  <button className="btn-cancel" onClick={closeModal}>Cancel</button>
-                  <button className="btn-save" onClick={saveEstimate} disabled={saving}>{saving ? 'Saving...' : 'Save Estimate'}</button>
+                  <button className="btn-cancel" onClick={close}>Cancel</button>
+                  <button className="btn-save" onClick={save} disabled={saving}>{saving ? 'Saving...' : 'Save Estimate'}</button>
                 </div>
               </div>
             </div>
@@ -1003,15 +899,10 @@
       const [activeTab, setActiveTab] = useState('dashboard');
 
       useEffect(() => {
-        db.auth.getSession().then(({ data: { session: s } }) => {
-          setSession(s);
-          setLoading(false);
-        });
+        db.auth.getSession().then(({ data: { session } }) => { setSession(session); setLoading(false); });
         const { data: { subscription } } = db.auth.onAuthStateChange((event, s) => {
           if (event === 'PASSWORD_RECOVERY') setIsRecovery(true);
-          else if (event === 'SIGNED_IN') setIsRecovery(false);
           setSession(s);
-          setLoading(false);
         });
         return () => subscription.unsubscribe();
       }, []);
@@ -1034,9 +925,7 @@
       );
     }
 
-    ReactDOM.createRoot(document.getElementById('root')).render(
-      <ErrorBoundary><App /></ErrorBoundary>
-    );
+    ReactDOM.createRoot(document.getElementById('root')).render(<ErrorBoundary><App /></ErrorBoundary>);
   </script>
 </body>
 </html>
