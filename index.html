@@ -5,6 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Handy Pro Services</title>
   <link rel="icon" href="./logo.png"/>
+  <script type="module">
+    import * as pdfjsLib from "https://cdn.jsdelivr.net/npm/pdfjs-dist@6.3.289/build/pdf.min.mjs";
+    pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdn.jsdelivr.net/npm/pdfjs-dist@6.3.289/build/pdf.worker.min.mjs";
+    window.pdfjsLib = pdfjsLib;
+  </script>
   <script type="module" crossorigin src="./assets/index-CZv21F48.js"></script>
   <link rel="stylesheet" crossorigin href="./assets/index-CS1vTX84.css">
 </head>
